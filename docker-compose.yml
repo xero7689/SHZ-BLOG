@@ -1,0 +1,57 @@
+version: "3"
+services:
+  application:
+    container_name: "tiri-aqi-django"
+    image: tiri_aqi_django:${IMAGE_VERSION:-latest}
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    volumes:
+      - .:/workspace
+      - tiri_app_static:${CONTAINER_STORAGE_PATH}
+    environment:
+      IN_CONTAINER: True
+      DEPLOY_STAGE:
+      DATABASE_URI:
+      DATABASE_DB_NAME:
+      DATABASE_USER:
+      DATABASE_PASSWD:
+      ADMIN_USERNAME:
+      ADMIN_PASSWORD:
+      AWS_S3_REGION:
+      AWS_STORAGE_BUCKET_NAME:
+      AWS_S3_CACHE_CONTROL_MAX_AGE:
+  server:
+    container_name: "tiri-aqi-server"
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      args:
+       DEPLOY_STAGE:
+    volumes:
+      - tiri_app_static:${CONTAINER_STORAGE_PATH}
+    ports:
+      - "80:80"
+  db:
+    container_name: "tiri-aqi-db"
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: "for-development"
+      POSTGRES_USER: "devel"
+      POSTGRES_PASSWORD: "for-development"
+    ports:
+      - "5432:5432"
+  redis:
+    restart: always
+    container_name: "tiri-aqi-cache"
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  tiri_app_static:
+    external: false
