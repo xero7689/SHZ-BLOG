@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    {% block head %}
+      <title>My Django App</title>
+    {% endblock head %}
+    <meta charset="UTF-8">
+    <meta name="description" content="Shzlee's Django Blog">
+    <meta name="keywords" content="Blog">
+  </head>
+  <body>
+    <header>
+      {% block header %}
+        <h1>Default Header</h1>
+      {% endblock header %}
+    </header>
+    <nav>
+      {% block nav %}
+      {% endblock nav %}
+    </nav>
+    <main>
+      {% block content %}
+      {% endblock content %}
+    </main>
+    <footer>
+      {% block footer %}
+      {% endblock footer %}
+    </footer>
+  </body>
+</html>

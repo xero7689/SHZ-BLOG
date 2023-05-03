@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -37,3 +38,20 @@ class Post(models.Model):
 
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     tags = models.ManyToManyField(Tag, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={"slug": self.slug})
+
+    def __str__(self):
+        return self.title
+
+
+class Comment(models.Model):
+    author = models.CharField(max_length=128, default='Anonymous')
+    body = models.TextField()
+    approved = models.BooleanField(default=True)
+    comment_at = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.author}:「{self.body[:20]}...」'

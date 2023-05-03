@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Tag, Post
+from .models import Profile, Tag, Post, Comment
 
 # Register your models here.
 
@@ -31,4 +31,14 @@ class PostAdmin(admin.ModelAdmin):
         "slug",
         "publish_date",
         "published"
+    ]
+
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'author',
+        'body',
+        'comment_at'
     ]

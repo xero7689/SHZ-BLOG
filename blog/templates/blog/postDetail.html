@@ -1,0 +1,10 @@
+{% extends "blog/index.html" %}
+{% block content %}
+  <div>
+    <h1>{{ object.title }}</h1>
+    <h2>{{ object.subtitle }}</h2>
+    <p>{{ object.body }}</p>
+    <p>create at {{ object.created_date }}</p>
+    {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
+  </div>
+{% endblock content %}

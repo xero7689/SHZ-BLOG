@@ -1,1 +1,30 @@
-<h1>Hello, World</h1>
+{% extends "blog/base.html" %}
+{% block head %}
+  <title>{{ post.title }}</title>
+{% endblock head %}
+{% block header %}
+  <h1>SHZ Lee Blog</h1>
+{% endblock header %}
+{% block nav %}
+  <ul>
+    <li>
+      <a href="{% url 'index' %}">HOME</a>
+    </li>
+    <li>
+      <a href="{% url 'tags_list' %}">TAGS</a>
+    </li>
+    <li>PROFILE</li>
+  </ul>
+{% endblock nav %}
+{% block content %}
+  <ul>
+    {% for post in posts %}
+      <li>
+        <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+        <p>{{ post.body }}</p>
+        {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
+        <p>created at - {{ post.publish_date }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock content %}
