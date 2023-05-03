@@ -6,5 +6,21 @@
     <p>{{ object.body }}</p>
     <p>create at {{ object.created_date }}</p>
     {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
+    <div>
+      <h3>Comments</h3>
+      <ul>
+        {% for comment in comments %}
+          <li>
+            <p>Author: {{ comment.author }}</p>
+            <p>{{ comment.body }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+      <form action='{{ object.get_absolute_url }}' method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
   </div>
 {% endblock content %}
