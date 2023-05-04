@@ -3,28 +3,36 @@
   <title>{{ post.title }}</title>
 {% endblock head %}
 {% block header %}
-  <h1>SHZ Lee Blog</h1>
+  <div id="header-wrapper">
+    <h1>SHZ Lee</h1>
+  </div>
 {% endblock header %}
 {% block nav %}
-  <ul>
-    <li>
-      <a href="{% url 'index' %}">HOME</a>
-    </li>
-    <li>
-      <a href="{% url 'tags_list' %}">TAGS</a>
-    </li>
-    <li>PROFILE</li>
-  </ul>
+  <div id="nav-wrapper">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="{% url 'index' %}">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'tags_list' %}">TAGS</a>
+      </li>
+      <li class="nav-item">
+        <a>PROFILE</a>
+      </li>
+    </ul>
+  </div>
 {% endblock nav %}
-{% block content %}
-  <ul>
+{% block sidepanel %}
+{% endblock sidepanel %}
+{% block main %}
+  <ul class="post-list">
     {% for post in posts %}
-      <li>
-        <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
-        <p>{{ post.body }}</p>
+      <li class="post-item">
+        <h1 class="post-title"><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h1>
+        <p class="post-body">{{ post.body }}</p>
         {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
-        <p>created at - {{ post.publish_date }}</p>
+        <p class="post-create-date">created at - {{ post.publish_date }}</p>
       </li>
     {% endfor %}
   </ul>
-{% endblock content %}
+{% endblock main %}

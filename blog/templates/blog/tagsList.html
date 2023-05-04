@@ -1,8 +1,8 @@
 {% extends "blog/index.html" %}
-{% block content %}
+{% block main %}
   {% for tag in object_list %}
-    <ul>
-      <li><a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a></li>
+    <ul id="tag-list">
+      <li class="tag-list-item"><a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a></li>
     </ul>
   {% endfor %}
-{% endblock content %}
+{% endblock main %}

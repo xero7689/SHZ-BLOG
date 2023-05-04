@@ -7,21 +7,33 @@
     <meta charset="UTF-8">
     <meta name="description" content="Shzlee's Django Blog">
     <meta name="keywords" content="Blog">
+    {% load static %}
+    <link rel="stylesheet" href={% static "blog/style.css" %}>
   </head>
-  <body>
-    <header>
+  <body id="body">
+    <header id="header">
       {% block header %}
         <h1>Default Header</h1>
       {% endblock header %}
     </header>
-    <nav>
+    <nav id="nav">
       {% block nav %}
       {% endblock nav %}
     </nav>
-    <main>
-      {% block content %}
-      {% endblock content %}
-    </main>
+    <div id="content-wrapper">
+      <main>
+        <div id="main-wrapper">
+          {% block main %}
+          {% endblock main %}
+        </div>
+      </main>
+      <aside>
+        <div id="sidepanel-wrapper">
+          {% block sidepanel %}
+          {% endblock sidepanel %}
+        </div>
+      </aside>
+    </div>
     <footer>
       {% block footer %}
       {% endblock footer %}

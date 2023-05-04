@@ -1,9 +1,9 @@
 {% extends "blog/index.html" %}
-{% block content %}
-  <div>
+{% block main %}
+  <div id="post-detail-wrapper">
     <h1>{{ object.title }}</h1>
     <h2>{{ object.subtitle }}</h2>
-    <p>{{ object.body }}</p>
+    <p class="post-body">{{ post.body }}</p>
     <p>create at {{ object.created_date }}</p>
     {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
     <div>
@@ -18,9 +18,9 @@
       </ul>
       <form action='{{ object.get_absolute_url }}' method="post">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit" value="Submit">
       </form>
     </div>
   </div>
-{% endblock content %}
+{% endblock main %}

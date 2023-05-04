@@ -1,6 +1,6 @@
-<ul>
+<ul id="post-tag-list">
     {% for tag in tags_list_object %}
-        <li>
+        <li class="post-tag-item">
             <a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a>
         </li>
     {% endfor %}

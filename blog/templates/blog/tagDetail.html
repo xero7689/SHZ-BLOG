@@ -1,9 +1,9 @@
 {% extends "blog/index.html" %}
-{% block content %}
+{% block main %}
     <h1>{{ tag.name }}</h1>
     {% for post in posts %}
         <ul>
             <li><a href="{% url 'post_detail' slug=post.slug %}">{{ post.title }}</a></li>
         </ul>
     {% endfor %}
-{% endblock content %}
+{% endblock main %}

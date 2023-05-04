@@ -11,7 +11,7 @@ from .forms import CommentForm
 
 
 def index(request):
-    posts = Post.objects.all()[:5]
+    posts = Post.objects.all()
     context = {
         'posts': posts
     }
