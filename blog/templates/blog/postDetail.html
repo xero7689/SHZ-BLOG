@@ -1,26 +1,43 @@
 {% extends "blog/index.html" %}
 {% block main %}
   <div id="post-detail-wrapper">
-    <h1>{{ object.title }}</h1>
-    <h2>{{ object.subtitle }}</h2>
-    <p class="post-body">{{ post.body }}</p>
-    <p>create at {{ object.created_date }}</p>
+    <div id="post-detail-header-wrapper">
+      <h1>{{ object.title }}</h1>
+      <h2>{{ object.subtitle }}</h2>
+    </div>
+    <div id="post-detail-body-wrapper">
+      <p class="post-body">{{ post.body }}</p>
+      <p>create at {{ object.created_date }}</p>
+    </div>
     {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
-    <div>
-      <h3>Comments</h3>
-      <ul>
-        {% for comment in comments %}
-          <li>
-            <p>Author: {{ comment.author }}</p>
-            <p>{{ comment.body }}</p>
-          </li>
-        {% endfor %}
-      </ul>
-      <form action='{{ object.get_absolute_url }}' method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Submit">
-      </form>
+    <div id="post-comment-wrapper">
+      <div id="post-comment-header-wrapper">
+        <h3>Comments</h3>
+      </div>
+      <div id="post-comment-body-wrapper">
+        <div id="post-comment-body-content-wrapper">
+          <ul class="post-comment-list">
+            {% for comment in comments %}
+              <li class="post-comment-item">
+                <div class="post-comment-item-header">
+                  <p class="post-comment-item-header-author">{{ comment.author }}</p>
+                  <p class="post-comment-item-header-time">{{ comment.comment_at }}</p>
+                </div>
+                <div class="post-comment-item-body">
+                  <p>{{ comment.body }}</p>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div id="post-comment-form-wrapper">
+          <form action='{{ object.get_absolute_url }}' method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 {% endblock main %}

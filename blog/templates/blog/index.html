@@ -14,10 +14,16 @@
         <a href="{% url 'index' %}">HOME</a>
       </li>
       <li class="nav-item">
-        <a href="{% url 'tags_list' %}">TAGS</a>
+        <a>ARTWORK</a>
+      </li>
+      <li class="nav-item">
+        <a>PROJECT</a>
       </li>
       <li class="nav-item">
         <a>PROFILE</a>
+      </li>
+      <li class="nav-item">
+        <a>CONTACT</a>
       </li>
     </ul>
   </div>
@@ -25,14 +31,25 @@
 {% block sidepanel %}
 {% endblock sidepanel %}
 {% block main %}
-  <ul class="post-list">
-    {% for post in posts %}
-      <li class="post-item">
-        <h1 class="post-title"><a href='{{ post.get_absolute_url }}'>{{ post.title }}</a></h1>
-        <p class="post-body">{{ post.body }}</p>
-        {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
-        <p class="post-create-date">created at - {{ post.publish_date }}</p>
-      </li>
-    {% endfor %}
-  </ul>
+  <div id="index-main-wrapper">
+    <ul class="post-list">
+      {% for post in posts %}
+        <li class="post-item">
+          <h1 class="post-title">
+            <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+          </h1>
+          <p class="post-body">{{ post.body }}</p>
+          {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
+          <p class="post-create-date">created at - {{ post.publish_date }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock main %}
+{% block footer %}
+<div id="footer-wrapper">
+  <div id="footer-copyright-wrapper">
+    <p>Copyright © 2023 SHZ LEE. All rights reserved.
+  </div>
+</div>
+{% endblock footer %}
