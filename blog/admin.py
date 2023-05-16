@@ -37,10 +37,6 @@ class PostAdmin(admin.ModelAdmin):
         "published"
     ]
 
-    formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget}
-    }
-
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

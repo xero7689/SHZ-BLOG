@@ -43,7 +43,8 @@
           <h1 class="post-title">
             <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
           </h1>
-          <div class="post-body">{{ post.body|safe_markdown }}</div>
+          <div class="post-body"><p>{{ post.abstract }}</p></div>
+          <span>Read More</span>
           {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
         </li>
       {% endfor %}

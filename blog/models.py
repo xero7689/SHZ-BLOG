@@ -30,6 +30,7 @@ class Post(models.Model):
 
     title = models.CharField(max_length=255, unique=True)
     subtitle = models.CharField(max_length=255, blank=True)
+    abstract = models.TextField(blank=True)
     slug = models.SlugField(max_length=255, unique=True)
     body = MartorField()
     meta_desc = models.CharField(max_length=150, blank=True)
