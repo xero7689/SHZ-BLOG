@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load martortags %}
 {% block head %}
   <title>{{ post.title }}</title>
 {% endblock head %}
@@ -29,27 +30,31 @@
   </div>
 {% endblock nav %}
 {% block sidepanel %}
+<div id="index-sidepanel-profile">
+</div>
 {% endblock sidepanel %}
 {% block main %}
   <div id="index-main-wrapper">
     <ul class="post-list">
       {% for post in posts %}
         <li class="post-item">
+          <hr class="index-item-divier">
+          <p class="post-create-date">{{ post.publish_date }}</p>
           <h1 class="post-title">
             <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
           </h1>
-          <p class="post-body">{{ post.body }}</p>
+          <div class="post-body">{{ post.body|safe_markdown }}</div>
           {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
-          <p class="post-create-date">created at - {{ post.publish_date }}</p>
         </li>
       {% endfor %}
     </ul>
   </div>
 {% endblock main %}
 {% block footer %}
-<div id="footer-wrapper">
-  <div id="footer-copyright-wrapper">
-    <p>Copyright © 2023 SHZ LEE. All rights reserved.
-  </div>
-</div>
-{% endblock footer %}
+  <div id="footer-wrapper">
+    <div id="footer-copyright-wrapper">
+      <p>
+        Copyright © 2023 SHZ LEE. All rights reserved.
+      </div>
+    </div>
+  {% endblock footer %}

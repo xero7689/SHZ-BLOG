@@ -1,0 +1,9 @@
+{% load martortags %}
+<div id="post-detail-header-wrapper">
+    <h1>{{ object.title }}</h1>
+    <h2>{{ object.subtitle }}</h2>
+</div>
+<div id="post-detail-body-wrapper">
+    {{ object.body|safe_markdown }}
+    <p>create at {{ object.created_date }}</p>
+</div>

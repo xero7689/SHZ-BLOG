@@ -1,4 +1,8 @@
+from django.db import models
 from django.contrib import admin
+
+from martor.widgets import AdminMartorWidget
+
 from .models import Profile, Tag, Post, Comment
 
 # Register your models here.
@@ -33,6 +37,10 @@ class PostAdmin(admin.ModelAdmin):
         "published"
     ]
 
+    formfield_overrides = {
+        models.TextField: {'widget': AdminMartorWidget}
+    }
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -42,3 +50,7 @@ class CommentAdmin(admin.ModelAdmin):
         'body',
         'comment_at'
     ]
+
+    formfield_overrides = {
+        models.TextField: {'widget': AdminMartorWidget}
+    }

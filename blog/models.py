@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 
+from martor.models import MartorField
+
 
 class Profile(models.Model):
     user = models.OneToOneField(
@@ -29,7 +31,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255, unique=True)
     subtitle = models.CharField(max_length=255, blank=True)
     slug = models.SlugField(max_length=255, unique=True)
-    body = models.TextField()
+    body = MartorField()
     meta_desc = models.CharField(max_length=150, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
@@ -48,7 +50,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     author = models.CharField(max_length=128, default='Anonymous')
-    body = models.TextField()
+    body = MartorField()
     approved = models.BooleanField(default=True)
     comment_at = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

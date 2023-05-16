@@ -1,3 +1,5 @@
+{% load static %}
+{% load martortags %}
 <!DOCTYPE html>
 <html lang="zh-TW">
   <head>
@@ -7,8 +9,56 @@
     <meta charset="UTF-8">
     <meta name="description" content="Shzlee's Django Blog">
     <meta name="keywords" content="Blog">
-    {% load static %}
-    <link rel="stylesheet" href={% static "blog/style.css" %}>
+    {% block css %}
+      <link rel="stylesheet" href={% static "blog/style.css" %}>
+      <!-- Martor Viewer CSS Static Loading-->
+      <link href="{% static 'plugins/css/ace.min.css' %}"
+            type="text/css"
+            media="all"
+            rel="stylesheet" />
+      <link href="{% static 'martor/css/martor.bootstrap.min.css' %}"
+            type="text/css"
+            media="all"
+            rel="stylesheet" />
+      <!-- Martor Editor Form CSS Static Loading-->
+      <link href="{% static 'plugins/css/ace.min.css' %}"
+            type="text/css"
+            media="all"
+            rel="stylesheet" />
+      <link href="{% static 'plugins/css/resizable.min.css' %}"
+            type="text/css"
+            media="all"
+            rel="stylesheet" />
+      <link href="{% static 'martor/css/martor.bootstrap.min.css' %}"
+            type="text/css"
+            media="all"
+            rel="stylesheet" />
+    {% endblock css %}
+    {% block js %}
+      <script type="text/javascript"
+              src="{% static 'jquery/dist/jquery-3.6.4.min.js' %}"></script>
+      <!-- Martor Viewer JS -->
+      <script type="text/javascript"
+              src="{% static 'plugins/js/highlight.min.js' %}"></script>
+      <!-- Martor Editor Form JS-->
+      <script type="text/javascript" src="{% static 'plugins/js/ace.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'plugins/js/mode-markdown.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'plugins/js/ext-language_tools.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'plugins/js/theme-github.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/typo.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/spellcheck.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'plugins/js/highlight.min.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'plugins/js/resizable.min.js' %}"></script>
+      <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
+      <script type="text/javascript"
+              src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
+
+    {% endblock js %}
   </head>
   <body id="body">
     <header id="header">

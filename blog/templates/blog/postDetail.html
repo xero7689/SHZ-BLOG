@@ -1,14 +1,9 @@
 {% extends "blog/index.html" %}
+{% load martortags %}
+
 {% block main %}
   <div id="post-detail-wrapper">
-    <div id="post-detail-header-wrapper">
-      <h1>{{ object.title }}</h1>
-      <h2>{{ object.subtitle }}</h2>
-    </div>
-    <div id="post-detail-body-wrapper">
-      <p class="post-body">{{ post.body }}</p>
-      <p>create at {{ object.created_date }}</p>
-    </div>
+    {% include "blog/postBody.html" with object=object %}
     {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
     <div id="post-comment-wrapper">
       <div id="post-comment-header-wrapper">
@@ -24,7 +19,7 @@
                   <p class="post-comment-item-header-time">{{ comment.comment_at }}</p>
                 </div>
                 <div class="post-comment-item-body">
-                  <p>{{ comment.body }}</p>
+                  {{ comment.body|safe_markdown }}
                 </div>
               </li>
             {% endfor %}
@@ -33,7 +28,10 @@
         <div id="post-comment-form-wrapper">
           <form action='{{ object.get_absolute_url }}' method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group">
+              {{ form }}
+            </div>
+
             <input type="submit" value="Submit">
           </form>
         </div>
