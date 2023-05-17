@@ -32,11 +32,32 @@
 {% block sidepanel %}
   <div id="sidepanel-profile-wrapper">
     <div id="index-sidepanel-profile">
-      <h2><span>About Me</span></h2>
+      <h2>
+        <span>About Me</span>
+      </h2>
       <p>{{ profile.biography }}</p>
     </div>
     <div id="index-sidepanel-archive">
-      <h2><span>Archive</span></h2>
+      <h2>
+        <span>Archive</span>
+      </h2>
+      <ul>
+        {% for year, months in archive.items %}
+          <li>
+            {{ year }}
+            <ul>
+              {% for month, posts in months.items %}
+                <li>
+                  {{ month }}
+                  <ul>
+                    {% for post in posts %}<li>{{ post.title }}</li>{% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
 {% endblock sidepanel %}
@@ -53,7 +74,9 @@
             <p>{{ post.abstract }}</p>
           </div>
           <div class="post-footer">
-            <p><a href='{{ post.get_absolute_url }}'>Read More</a></p>
+            <p>
+              <a href='{{ post.get_absolute_url }}'>Read More</a>
+            </p>
           </div>
           <hr class="index-item-divier">
         </li>
@@ -64,8 +87,7 @@
 {% block footer %}
   <div id="footer-wrapper">
     <div id="footer-copyright-wrapper">
-      <p>
-        Copyright © 2023 SHZ LEE. All rights reserved.
-      </div>
+      <p>Copyright © 2023 SHZ LEE. All rights reserved.</p>
     </div>
-  {% endblock footer %}
+  </div>
+{% endblock footer %}
