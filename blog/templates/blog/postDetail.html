@@ -1,11 +1,14 @@
 {% extends "blog/index.html" %}
 {% load martortags %}
 
+{% block sidepanel %}
+{% endblock sidepanel %}
+
 {% block main %}
   <div id="post-detail-wrapper">
     {% include "blog/postBody.html" with object=object %}
     {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
-    <div id="post-comment-wrapper">
+    {% comment %} <div id="post-comment-wrapper">
       <div id="post-comment-header-wrapper">
         <h3>Comments</h3>
       </div>
@@ -36,6 +39,6 @@
           </form>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
   </div>
 {% endblock main %}

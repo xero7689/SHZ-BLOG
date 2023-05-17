@@ -1,5 +1,5 @@
 <div id="tag-list-component-wrap">
-    <ul id="post-tag-list">
+    <ul class="post-tag-list">
         {% for tag in tags_list_object %}
             <li class="post-tag-item">
                 <a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a>

@@ -5,14 +5,14 @@
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
-    <h1>SHZ Lee</h1>
+    <h1 class="site-header-text">shzlee.com</h1>
   </div>
 {% endblock header %}
 {% block nav %}
   <div id="nav-wrapper">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{% url 'index' %}">HOME</a>
+        <a href="{% url 'index' %}">BLOG</a>
       </li>
       <li class="nav-item">
         <a>ARTWORK</a>
@@ -30,22 +30,32 @@
   </div>
 {% endblock nav %}
 {% block sidepanel %}
-<div id="index-sidepanel-profile">
-</div>
+  <div id="sidepanel-profile-wrapper">
+    <div id="index-sidepanel-profile">
+      <h2><span>About Me</span></h2>
+      <p>{{ profile.biography }}</p>
+    </div>
+    <div id="index-sidepanel-archive">
+      <h2><span>Archive</span></h2>
+    </div>
+  </div>
 {% endblock sidepanel %}
 {% block main %}
   <div id="index-main-wrapper">
     <ul class="post-list">
       {% for post in posts %}
         <li class="post-item">
-          <hr class="index-item-divier">
           <p class="post-create-date">{{ post.publish_date }}</p>
           <h1 class="post-title">
             <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
           </h1>
-          <div class="post-body"><p>{{ post.abstract }}</p></div>
-          <span>Read More</span>
-          {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
+          <div class="post-body">
+            <p>{{ post.abstract }}</p>
+          </div>
+          <div class="post-footer">
+            <p><a href='{{ post.get_absolute_url }}'>Read More</a></p>
+          </div>
+          <hr class="index-item-divier">
         </li>
       {% endfor %}
     </ul>

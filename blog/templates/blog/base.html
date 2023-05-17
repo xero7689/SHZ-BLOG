@@ -57,19 +57,20 @@
       <script type="text/javascript" src="{% static 'plugins/js/emojis.min.js' %}"></script>
       <script type="text/javascript"
               src="{% static 'martor/js/martor.bootstrap.min.js' %}"></script>
-
     {% endblock js %}
   </head>
   <body id="body">
-    <header id="header">
-      {% block header %}
-        <h1>Default Header</h1>
-      {% endblock header %}
-    </header>
-    <nav id="nav">
-      {% block nav %}
-      {% endblock nav %}
-    </nav>
+    <div id="appbar-wrapper">
+      <header id="header">
+        {% block header %}
+          <h1>Default Header</h1>
+        {% endblock header %}
+      </header>
+      <nav id="nav">
+        {% block nav %}
+        {% endblock nav %}
+      </nav>
+    </div>
     <div id="content-wrapper">
       <main>
         <div id="main-wrapper">
@@ -77,6 +78,7 @@
           {% endblock main %}
         </div>
       </main>
+      <div id="content-divider"></div>
       <aside>
         <div id="sidepanel-wrapper">
           {% block sidepanel %}
