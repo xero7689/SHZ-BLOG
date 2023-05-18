@@ -78,11 +78,16 @@ body {
     margin-right: 2rem;
 }
 
+#index-sidepanel-profile {
+    max-width: 30ch;
+}
+
 #index-sidepanel-profile h2{
     margin: 0;
 }
 
 #index-sidepanel-archive {
+    max-width: 30ch;
 }
 
 #index-sidepanel-archive h2{
