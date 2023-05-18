@@ -1,5 +1,3 @@
-from django.db.models import Count, DateTimeField
-from django.db.models.functions import Trunc
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView, ListView, FormView
@@ -20,13 +18,11 @@ class index(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        grouped_data = Post.objects.filter(published=True).annotate(year=Trunc('publish_date', 'year', output_field=DateTimeField()), month=Trunc('publish_date', 'month', output_field=DateTimeField(
-        )), day=Trunc('publish_date', 'day', output_field=DateTimeField())).values('title', 'slug', 'year', 'month', 'day').annotate(count=Count('id')).order_by('-year', '-month')
         aggregated_data = {}
-
+        grouped_data = Post.objects.filter(published=True)
         for post in grouped_data:
-            year = post['year'].strftime('%Y')
-            month = post['month'].strftime('%b')
+            year = post.publish_date.strftime('%Y')
+            month = post.publish_date.strftime('%b')
             if year not in aggregated_data:
                 aggregated_data[year] = {}
             if month not in aggregated_data[year]:

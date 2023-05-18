@@ -50,7 +50,7 @@
                 <li>
                   {{ month }}
                   <ul>
-                    {% for post in posts %}<li>{{ post.title }}</li>{% endfor %}
+                    {% for post in posts %}<li><a href={{ post.get_absolute_url }}>{{ post.title }}</a></li>{% endfor %}
                   </ul>
                 </li>
               {% endfor %}
