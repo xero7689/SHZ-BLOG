@@ -1,5 +1,6 @@
 {% extends "blog/base.html" %}
 {% load martortags %}
+{% load blog_extras %}
 {% block head %}
   <title>{{ post.title }}</title>
 {% endblock head %}
@@ -44,13 +45,17 @@
       <ul>
         {% for year, months in archive.items %}
           <li>
-            {{ year }}
+            <a href={% url 'index' year=year %}>{{ year }}</a>
             <ul>
               {% for month, posts in months.items %}
                 <li>
-                  {{ month }}
+                  <a href={% url 'index' year=year month=month %}>{{ month|month_name }}</a>
                   <ul>
-                    {% for post in posts %}<li><a href={{ post.get_absolute_url }}>{{ post.title }}</a></li>{% endfor %}
+                    {% for post in posts %}
+                      <li>
+                        <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                      </li>
+                    {% endfor %}
                   </ul>
                 </li>
               {% endfor %}
@@ -59,12 +64,18 @@
         {% endfor %}
       </ul>
     </div>
-    <div id="index-sidepanel-category">
-    </div>
+    <div id="index-sidepanel-category"></div>
   </div>
 {% endblock sidepanel %}
 {% block main %}
   <div id="index-main-wrapper">
+    {% if date_parameter %}
+      <div id="date-parameter-wrapper">
+        <h2>{{ date_parameter.year }}年</h2>
+        {% if date_parameter.month %}<h2>{{ date_parameter.month }}月</h2>{% endif %}
+      </div>
+      <hr class="date-parameter-divier">
+    {% endif %}
     <ul class="post-list">
       {% for post in posts %}
         <li class="post-item">

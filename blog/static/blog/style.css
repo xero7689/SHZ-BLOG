@@ -40,8 +40,8 @@ a {
 }
 
 body {
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    flex-direction: column;
     /* align-items: center; */
     background-color: var(--color-background-secondary);
     color: #6c6c6c;
@@ -97,6 +97,11 @@ body {
     justify-content: center;
     gap: 2rem 2rem;
     padding: 2.5rem 2rem 0 2rem;
+}
+
+#date-parameter-wrapper {
+    display: flex;
+    gap: 1rem;
 }
 
 .post-list {

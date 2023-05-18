@@ -15,14 +15,35 @@ class index(ListView):
     context_object_name = 'posts'
     template_name = 'blog/index.html'
 
+    def get_queryset(self):
+        year = self.kwargs.get('year', None)
+        month = self.kwargs.get('month', None)
+
+        query_set = super().get_queryset()
+
+        if year:
+            query_set = query_set.filter(publish_date__year=year)
+            if month:
+                query_set = query_set.filter(publish_date__month=month)
+
+        return query_set
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # Date Parameter
+        date_parameter = {}
+        if 'year' in self.kwargs:
+            date_parameter['year'] = self.kwargs['year']
+            if 'month' in self.kwargs:
+                date_parameter['month'] = self.kwargs['month']
+
+        # Aggregate Archieve Data
         aggregated_data = {}
         grouped_data = Post.objects.filter(published=True)
         for post in grouped_data:
             year = post.publish_date.strftime('%Y')
-            month = post.publish_date.strftime('%b')
+            month = post.publish_date.strftime('%m')
             if year not in aggregated_data:
                 aggregated_data[year] = {}
             if month not in aggregated_data[year]:
@@ -30,6 +51,7 @@ class index(ListView):
             aggregated_data[year][month].append(post)
 
         context['archive'] = aggregated_data
+        context['date_parameter'] = date_parameter
 
         return context
 
