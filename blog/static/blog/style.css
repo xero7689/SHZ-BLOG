@@ -49,6 +49,8 @@ body {
 }
 
 #appbar-wrapper {
+    position: sticky;
+    top: 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -56,7 +58,6 @@ body {
     width: 100%;
     background-color: #6c6c6c;
     color: #e8e8e8;
-    padding: 0.5rem;
 }
 
 #header-wrapper {}
