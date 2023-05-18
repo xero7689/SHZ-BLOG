@@ -82,6 +82,22 @@ body {
     margin: 0;
 }
 
+#index-sidepanel-archive {
+}
+
+#index-sidepanel-archive h2{
+    margin: 0;
+}
+
+#index-sidepanel-archive-list-wrapper ul {
+    line-height: 2;
+    margin: 0;
+}
+
+#index-sidepanel-archive-list-wrapper li {
+    list-style-type: square;
+}
+
 .nav-list {
     padding: 0;
 }

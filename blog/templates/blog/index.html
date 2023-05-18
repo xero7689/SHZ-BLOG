@@ -39,32 +39,35 @@
       <p>{{ profile.biography }}</p>
     </div>
     <div id="index-sidepanel-archive">
-      <h2>
-        <span>Archive</span>
-      </h2>
-      <ul>
-        {% for year, months in archive.items %}
-          <li>
-            <a href={% url 'index' year=year %}>{{ year }}</a>
-            <ul>
-              {% for month, posts in months.items %}
-                <li>
-                  <a href={% url 'index' year=year month=month %}>{{ month|month_name }}</a>
-                  <ul>
-                    {% for post in posts %}
-                      <li>
-                        <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% endfor %}
-      </ul>
+      <div id="index-sidepanel-archive-header-wrapper">
+        <h2>
+          <span>Archive</span>
+        </h2>
+      </div>
+      <div id="index-sidepanel-archive-list-wrapper">
+          {% for year, months in archive.items %}
+              <ul>
+                {% for month, posts in months.items %}
+                  <li>
+                    <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{year}}</a>
+                    <ul>
+                      {% for post in posts %}
+                        <li>
+                          <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                {% endfor %}
+              </ul>
+          {% endfor %}
+      </div>
     </div>
-    <div id="index-sidepanel-category"></div>
+    <div id="index-sidepanel-category">
+      <div id="index-sidepanel-category-header-wrapper">
+        <h2>Category</h2>
+      </div>
+    </div>
   </div>
 {% endblock sidepanel %}
 {% block main %}
