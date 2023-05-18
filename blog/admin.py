@@ -3,7 +3,7 @@ from django.contrib import admin
 
 from martor.widgets import AdminMartorWidget
 
-from .models import Profile, Tag, Post, Comment
+from .models import Profile, Tag, Post, Comment, Category
 
 # Register your models here.
 
@@ -20,6 +20,14 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'name'
+    ]
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
     list_display = [
         'id',
         'name'

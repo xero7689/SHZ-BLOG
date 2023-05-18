@@ -24,6 +24,13 @@ class Tag(models.Model):
         return self.name
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     class Meta:
         ordering = ['-publish_date']
@@ -40,6 +47,7 @@ class Post(models.Model):
     published = models.BooleanField(default=False)
 
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def get_absolute_url(self):

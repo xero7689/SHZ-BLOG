@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 
-from .models import Post, Tag, Comment
+from .models import Post, Tag, Comment, Category
 from .forms import CommentForm
 
 
@@ -50,8 +50,12 @@ class index(ListView):
                 aggregated_data[year][month] = []
             aggregated_data[year][month].append(post)
 
+        # Category
+        categories = Category.objects.all()
+
         context['archive'] = aggregated_data
         context['date_parameter'] = date_parameter
+        context['categories'] = categories
 
         return context
 
