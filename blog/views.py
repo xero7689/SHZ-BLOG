@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 
-from .models import Post, Tag, Comment, Category
+from .models import Post, Tag, Comment
 from .forms import CommentForm
 
 
@@ -37,25 +37,6 @@ class index(ListView):
             date_parameter['year'] = self.kwargs['year']
             if 'month' in self.kwargs:
                 date_parameter['month'] = self.kwargs['month']
-
-        # Aggregate Archieve Data
-        aggregated_data = {}
-        grouped_data = Post.objects.filter(published=True)
-        for post in grouped_data:
-            year = post.publish_date.strftime('%Y')
-            month = post.publish_date.strftime('%m')
-            if year not in aggregated_data:
-                aggregated_data[year] = {}
-            if month not in aggregated_data[year]:
-                aggregated_data[year][month] = []
-            aggregated_data[year][month].append(post)
-
-        # Category
-        categories = Category.objects.all()
-
-        context['archive'] = aggregated_data
-        context['date_parameter'] = date_parameter
-        context['categories'] = categories
 
         return context
 
