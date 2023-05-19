@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 
-from .models import Post, Tag, Comment
+from .models import Post, Tag, Comment, Category
 from .forms import CommentForm
 
 
@@ -84,6 +84,23 @@ class postView(View):
     def post(self, request, *args, **kwargs):
         view = LeaveCommentFormView.as_view()
         return view(request, *args, **kwargs)
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'blog/categoryList.html'
+
+
+def category_detail_view(request, name):
+    category = Category.objects.get(name=name)
+    posts = category.post_set.all()
+
+    context = {
+        'category': category,
+        'posts': posts
+    }
+
+    return render(request, 'blog/CategoryDetail.html', context)
 
 
 class TagsListView(ListView):

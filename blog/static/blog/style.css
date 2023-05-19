@@ -204,9 +204,6 @@ body {
     line-height: 1.8;
 }
 
-#tag-list {
-}
-
 #tag-list-header-wrapper h2 {
     margin: 0 0 2rem 0;
 }
@@ -238,6 +235,16 @@ body {
 }
 
 #tag-detail-wrapper h2 {
+    margin: 0 0 2rem 0;
+}
+
+
+#cateogry-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+#category-detail-wrapper h2 {
     margin: 0 0 2rem 0;
 }
 

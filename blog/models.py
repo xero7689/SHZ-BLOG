@@ -30,6 +30,9 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("category_detail", kwargs={"name": self.name})
+
 
 class Post(models.Model):
     class Meta:
@@ -47,7 +50,8 @@ class Post(models.Model):
     published = models.BooleanField(default=False)
 
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, blank=True, null=True)
+    category = models.ForeignKey(
+        Category, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
     def get_absolute_url(self):

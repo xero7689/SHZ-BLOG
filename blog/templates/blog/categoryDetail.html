@@ -1,0 +1,9 @@
+{% extends "blog/index.html" %}
+{% block main %}
+    <div id="category-detail-wrapper">
+        <div class="category-detail-header-wrapper">
+            <h2>Category: {{ category.name }}</h2>
+        </div>
+        {% include "blog/postList.html" with posts=posts %}
+    </div>
+{% endblock main %}
