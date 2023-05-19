@@ -13,7 +13,7 @@
   <div id="nav-wrapper">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{% url 'index' %}">BLOG</a>
+        <a href="{% url 'index' %}">POSTS</a>
       </li>
       <li class="nav-item">
         <a>ARTWORK</a>
@@ -83,6 +83,20 @@
     </div>
   </div>
 {% endblock sidepanel %}
+{% block breadcrumbs %}
+  <nav id="breadcrumbs">
+    {% if request.path != '/blog/' %}
+      {% for path in breadcrumb_path %}
+        {% if forloop.last %}
+          <span class="breadcrumb-item-active">{{ path.name }}</span>
+        {% else %}
+          <span class="breadcrumb-item"><a href='{{ path.href }}'>{{ path.name }}</a></span>
+          <span>/</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </nav>
+{% endblock breadcrumbs %}
 {% block main %}
   <div id="index-main-wrapper">
     {% if date_parameter %}

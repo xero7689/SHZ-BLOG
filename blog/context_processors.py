@@ -20,9 +20,18 @@ def index(request):
     # Categories
     categories = Category.objects.all()
 
-    print("warudo")
+    # Breadcrumb
+    paths = list(filter(None, request.path.split('/')))
+    breadcrumb_path = []
+    for index, path in enumerate(paths):
+        breadcrumb_path.append({
+            "name": path,
+            "href": "/" + "/".join([p for p in paths[:index + 1]])
+        })
+
     return {
         'profile': profile,
         'archive': aggregated_data,
-        'categories': categories
+        'categories': categories,
+        'breadcrumb_path': breadcrumb_path
     }

@@ -264,6 +264,16 @@ body {
     margin: 0 0 2rem 0;
 }
 
+#breadcrumbs {
+    display: flex;
+    gap: 0.2rem;
+    font-size: 1.1rem;
+}
+
+.breadcrumb-item-active {
+    font-weight: bold;
+}
+
 #footer-wrapper {
     display: flex;
     justify-content: center;

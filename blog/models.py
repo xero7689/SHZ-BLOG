@@ -59,7 +59,7 @@ class Post(models.Model):
             "slug": self.slug,
             "year": self.created_date.year,
             "month": self.created_date.month,
-            "day": self.created_date.day
+            # "day": self.created_date.day
         })
 
     def __str__(self):

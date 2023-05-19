@@ -73,13 +73,17 @@
     </div>
     <div id="content-wrapper">
       <main>
-          {% block main %}
-          {% endblock main %}
+        <div id="breadcrumbs-wrapper">
+          {% block breadcrumbs %}
+          {% endblock breadcrumbs %}
+        </div>
+        {% block main %}
+        {% endblock main %}
       </main>
       <div id="content-divider"></div>
       <aside>
-          {% block sidepanel %}
-          {% endblock sidepanel %}
+        {% block sidepanel %}
+        {% endblock sidepanel %}
       </aside>
     </div>
     <footer>
