@@ -1,0 +1,21 @@
+<div id="post-list-wrapper">
+    <ul class="post-list">
+        {% for post in posts %}
+            <li class="post-item">
+                <p class="post-create-date">{{ post.publish_date }}</p>
+                <h1 class="post-title">
+                    <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+                </h1>
+                <div class="post-body">
+                    <p>{{ post.abstract }}</p>
+                </div>
+                <div class="post-footer">
+                    <p>
+                        <a href='{{ post.get_absolute_url }}'>Read More</a>
+                    </p>
+                </div>
+                <hr class="index-item-divier">
+            </li>
+        {% endfor %}
+    </ul>
+</div>

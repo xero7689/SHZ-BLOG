@@ -31,48 +31,48 @@
   </div>
 {% endblock nav %}
 {% block sidepanel %}
-  <div id="sidepanel-profile-wrapper">
-    <div id="index-sidepanel-profile">
-      <h2>
-        <span>About Me</span>
-      </h2>
-      <p>{{ profile.biography }}</p>
-    </div>
-    <div id="index-sidepanel-archive">
-      <div id="index-sidepanel-archive-header-wrapper">
+  <div id="index-sidepanel-wrapper">
+    <div id="index-sidepanel-profile-wrapper">
+      <div id="index-sidepanel-profile">
         <h2>
-          <span>Archive</span>
+          <span>About Me</span>
         </h2>
+        <p>{{ profile.biography }}</p>
       </div>
-      <div id="index-sidepanel-archive-list-wrapper">
+      <div id="index-sidepanel-archive">
+        <div id="index-sidepanel-archive-header-wrapper">
+          <h2>
+            <span>Archive</span>
+          </h2>
+        </div>
+        <div id="index-sidepanel-archive-list-wrapper">
           {% for year, months in archive.items %}
-              <ul>
-                {% for month, posts in months.items %}
-                  <li>
-                    <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{year}}</a>
-                    <ul>
-                      {% for post in posts %}
-                        <li>
-                          <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                {% endfor %}
-              </ul>
+            <ul>
+              {% for month, posts in months.items %}
+                <li>
+                  <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
+                  <ul>
+                    {% for post in posts %}
+                      <li>
+                        <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
           {% endfor %}
+        </div>
       </div>
-    </div>
-    <div id="index-sidepanel-category">
-      <div id="index-sidepanel-category-header-wrapper">
-        <h2>Category</h2>
-      </div>
-      <div id="index-sidepanel-category-list-wrapper">
-        <ul>
-          {% for category in categories %}
-            <li>{{ category }}</li>
-          {% endfor %}
-        </ul>
+      <div id="index-sidepanel-category">
+        <div id="index-sidepanel-category-header-wrapper">
+          <h2>Category</h2>
+        </div>
+        <div id="index-sidepanel-category-list-wrapper">
+          <ul>
+            {% for category in categories %}<li>{{ category }}</li>{% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -86,25 +86,7 @@
       </div>
       <hr class="date-parameter-divier">
     {% endif %}
-    <ul class="post-list">
-      {% for post in posts %}
-        <li class="post-item">
-          <p class="post-create-date">{{ post.publish_date }}</p>
-          <h1 class="post-title">
-            <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
-          </h1>
-          <div class="post-body">
-            <p>{{ post.abstract }}</p>
-          </div>
-          <div class="post-footer">
-            <p>
-              <a href='{{ post.get_absolute_url }}'>Read More</a>
-            </p>
-          </div>
-          <hr class="index-item-divier">
-        </li>
-      {% endfor %}
-    </ul>
+    {% include "blog/postList.html" with posts=posts %}
   </div>
 {% endblock main %}
 {% block footer %}
