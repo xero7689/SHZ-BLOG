@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from . import from_env as environment
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,13 +26,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3(&%$4%=f7v!jf--uc&7bo=utfjntp(=pi)2xi-q5b_y40x%s5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEPLOY_STAGE = environment.DEPLOY_STAGE
+DEBUG = True if environment.IS_DEBUG else False
+
+IN_CONTAINER = environment.IN_CONTAINER
+IS_LOCAL = True if not IN_CONTAINER else False
+if IN_CONTAINER:
+    CONTAINER_STORAGE_PATH = environment.CONTAINER_STORAGE_PATH
+
+USE_S3 = True if environment.AWS_S3_REGION else False
 
 ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,17 +86,31 @@ WSGI_APPLICATION = 'shzleeBlog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if IS_LOCAL:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': environment.DATABASE_DB_NAME,
+            'USER': environment.DATABASE_USER,
+            'PASSWORD': environment.DATABASE_PASSWD,
+            'HOST': environment.DATABASE_URI,
+            'PORT': environment.DATABASE_URI_PORT,
+            'OPTIONS': {
+                'application_name': environment.APP_NAME
+            }
+        }
+    }
 
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -109,7 +132,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Taipei'
 
 USE_I18N = True
 
@@ -119,22 +142,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
-STATICFILES_DIRS = [
-    BASE_DIR / "static_extra",
-]
+if USE_S3:
+    AWS_S3_REGION = environment.AWS_S3_REGION
+    AWS_ACCESS_KEY_ID = environment.AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = environment.AWS_SECRET_ACCESS_KEY
+    AWS_STORAGE_BUCKET_NAME = environment.AWS_STORAGE_BUCKET_NAME
+    AWS_S3_CUSTOM_DOMAIN = environment.AWS_S3_CUSTOM_DOMAIN
+    AWS_S3_OBJECT_PARAMETERS = environment.AWS_S3_OBJECT_PARAMETERS
+    AWS_LOCATION = environment.AWS_LOCATION
+
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+else:
+    STATIC_URL = 'static/'
+    if IN_CONTAINER:
+        STATIC_ROOT = CONTAINER_STORAGE_PATH
+    else:
+        STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
+    STATICFILES_DIRS = [
+        BASE_DIR / "static_extra",
+    ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 """
-
 Martor Editor Settings
-
 """
 # Choices are: "semantic", "bootstrap"
 MARTOR_THEME = 'bootstrap'
