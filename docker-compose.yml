@@ -18,6 +18,7 @@ services:
       - blog_app_static:${CONTAINER_STORAGE_PATH}
     environment:
       IN_CONTAINER:
+      IS_DEBUG:
       CONTAINER_STORAGE_PATH:
       DEPLOY_STAGE:
       DATABASE_URI:

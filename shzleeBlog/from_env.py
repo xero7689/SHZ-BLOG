@@ -3,7 +3,7 @@ import os
 # General Settings
 APP_NAME = os.environ.get('APP_NAME', 'blog')
 DEPLOY_STAGE = os.environ.get('DEPLOY_STAGE', 'local')
-IS_DEBUG = os.environ.get('IS_DEBUG', True)
+IS_DEBUG = (os.environ.get('IS_DEBUG', 'True') == 'True')
 
 # Container Settings
 IN_CONTAINER = os.environ.get('IN_CONTAINER', False)
