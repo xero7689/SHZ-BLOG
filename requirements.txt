@@ -2,4 +2,6 @@ Django==4.2
 psycopg2==2.9.3
 uWSGI==2.0.20
 
+Pillow==9.5.0
+
 martor==1.6.26
