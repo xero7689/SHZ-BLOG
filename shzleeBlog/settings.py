@@ -142,6 +142,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 if USE_S3:
     AWS_S3_REGION = environment.AWS_S3_REGION
     AWS_ACCESS_KEY_ID = environment.AWS_ACCESS_KEY_ID
@@ -153,11 +155,12 @@ if USE_S3:
 
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:
-    STATIC_URL = 'static/'
     if IN_CONTAINER:
-        STATIC_ROOT = CONTAINER_STORAGE_PATH
+        STATIC_ROOT = os.path.join(CONTAINER_STORAGE_PATH, 'static')
+        MEDIA_ROOT = os.patch.join(CONTAINER_STORAGE_PATH, 'media')
     else:
         STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
+        MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
     STATICFILES_DIRS = [
         BASE_DIR / "static_extra",
     ]

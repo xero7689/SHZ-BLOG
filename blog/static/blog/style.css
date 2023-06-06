@@ -171,6 +171,12 @@ body {
     font-size: 18px;
 }
 
+.post-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
 .post-footer p{
     font-weight: 500; 
     font-size: 16px;
@@ -220,6 +226,12 @@ body {
     max-width: 70ch;
     font-size: 18px;
     line-height: 1.8;
+}
+
+#post-detail-body-wrapper img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
 }
 
 #tag-list-header-wrapper h2 {

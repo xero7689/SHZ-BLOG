@@ -75,3 +75,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author}:「{self.body[:20]}...」'
+
+
+class Image(models.Model):
+    name = models.CharField(max_length=64)
+    image = models.ImageField(upload_to="images")
+    upload_at = models.DateTimeField(auto_now_add=True)

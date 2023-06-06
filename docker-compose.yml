@@ -15,7 +15,7 @@ services:
     command: [ "/bin/bash", "-c", "uwsgi --ini uwsgi.ini" ]
     volumes:
       - .:/workspace
-      - blog_app_static:${CONTAINER_STORAGE_PATH}
+      - blog_app_data:${CONTAINER_STORAGE_PATH}
     environment:
       IN_CONTAINER:
       IS_DEBUG:
@@ -43,7 +43,7 @@ services:
       args:
         DEPLOY_STAGE:
     volumes:
-      - blog_app_static:${CONTAINER_STORAGE_PATH}
+      - blog_app_data:${CONTAINER_STORAGE_PATH}
     ports:
       - "80:80"
     depends_on:
@@ -62,5 +62,5 @@ services:
 
 volumes:
   db_data:
-  blog_app_static:
+  blog_app_data:
     external: false
