@@ -6,14 +6,16 @@
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
-    <h1 class="site-header-text">shzlee.com</h1>
+    <a href="{% url 'index' %}">
+      <h1 class="site-header-text">shzlee.com</h1>
+    </a>
   </div>
 {% endblock header %}
 {% block nav %}
   <div id="nav-wrapper">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{% url 'index' %}">POSTS</a>
+        <a href="{% url 'index' %}">BLOG</a>
       </li>
       <li class="nav-item">
         <a>PROJECT</a>
