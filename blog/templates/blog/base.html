@@ -10,7 +10,12 @@
     <meta name="description" content="Shzlee's Django Blog">
     <meta name="keywords" content="Blog">
     {% block css %}
+      <!-- My Custom CSS-->
       <link rel="stylesheet" href={% static "blog/style.css" %}>
+
+      <!-- Web 3rd Party CSS-->
+      <link href="{% static 'fontawesome-free-6.4.0-web/css/all.css' %}" rel="stylesheet"></link>
+
       <!-- Martor Viewer CSS Static Loading-->
       <link href="{% static 'plugins/css/ace.min.css' %}"
             type="text/css"

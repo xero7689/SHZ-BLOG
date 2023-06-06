@@ -1,0 +1,18 @@
+<div id="post-detail-bottom-nav">
+    {% if prev_post %}
+        <div class="nav-item-wrapper">
+            <a href='{{ prev_post.get_absolute_url }}'>
+                <i class="fa-solid fa-angle-left"></i>
+                <span>{{ prev_post.title }}</span>
+            </a>
+        </div>
+    {% endif %}
+    {% if next_post %}
+        <div class="nav-item-wrapper">
+            <a href='{{ next_post.get_absolute_url }}'>
+                <span>{{ next_post.title }}</span>
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </div>
+    {% endif %}
+</div>

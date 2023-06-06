@@ -136,6 +136,7 @@ body {
     justify-content: center;
     gap: 2rem 2rem;
     padding: 2.5rem 2rem 0 2rem;
+    flex-grow: 1;
 }
 
 #date-parameter-wrapper {
@@ -232,6 +233,22 @@ body {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
+}
+
+#post-detail-bottom-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#post-detail-bottom-nav .nav-item-wrapper {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.post-detail-thematic-break hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
 }
 
 #tag-list-header-wrapper h2 {

@@ -26,7 +26,7 @@ class index(ListView):
             if month:
                 query_set = query_set.filter(publish_date__month=month)
 
-        return query_set
+        return query_set.filter(published=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -50,8 +50,15 @@ class postDetailView(DetailView):
 
         comments = Comment.objects.filter(post=self.get_object())
 
+        current_post = self.object
+        previous_post = Post.objects.filter(publish_date__lt=current_post.publish_date, published=True).order_by('publish_date').last()
+        next_post = Post.objects.filter(publish_date__gt=current_post.publish_date, published=True).order_by('publish_date').first()
+
         context['form'] = CommentForm()
         context['comments'] = comments
+
+        context['prev_post'] = previous_post
+        context['next_post'] = next_post
 
         return context
 
