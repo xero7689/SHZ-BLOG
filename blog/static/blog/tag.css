@@ -1,0 +1,28 @@
+#tag-list-header-wrapper h2 {
+    margin: 0 0 2rem 0;
+}
+
+.tag-list-item {
+    font-weight: bold;
+}
+
+.tag-list-item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.tag-list-item-wrapper p {
+    margin: 0;
+    font-weight: 400;
+}
+
+
+#tag-detail-wrapper {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#tag-detail-wrapper h2 {
+    margin: 0 0 2rem 0;
+}

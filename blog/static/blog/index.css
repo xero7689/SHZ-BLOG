@@ -1,0 +1,42 @@
+#index-sidepanel-profile {
+    max-width: 30ch;
+}
+
+#index-sidepanel-profile h2 {
+    margin: 0;
+}
+
+#index-sidepanel-archive {
+    max-width: 30ch;
+}
+
+#index-sidepanel-archive h2 {
+    margin: 0;
+}
+
+#index-sidepanel-archive-list-wrapper ul {
+    line-height: 2;
+    margin: 0;
+}
+
+#index-sidepanel-archive-list-wrapper li {
+    list-style-type: square;
+}
+
+
+#index-sidepanel-category {
+    max-width: 30ch;
+}
+
+#index-sidepanel-category h2 {
+    margin: 0;
+}
+
+#index-sidepanel-category-list-wrapper ul {
+    line-height: 2;
+    margin: 0;
+}
+
+#index-sidepanel-category-list-wrapper li {
+    list-style-type: square;
+}
