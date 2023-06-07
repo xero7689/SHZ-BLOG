@@ -19,6 +19,10 @@ class ProfileAdmin(admin.ModelAdmin):
         'biography'
     ]
 
+    formfield_overrides = {
+        models.TextField: {'widget': AdminMartorWidget}
+    }
+
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):

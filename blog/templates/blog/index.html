@@ -17,21 +17,21 @@
       <li class="nav-item">
         <a href="{% url 'index' %}">BLOG</a>
       </li>
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a>PROJECT</a>
-      </li>
+      </li> {% endcomment %}
       <li class="nav-item">
         <a href="{{ profile.website }}">PROFILE</a>
       </li>
       <li class="nav-item">
-        <a>CONTACT</a>
+        <a href="{% url 'about' %}">ABOUT</a>
       </li>
     </ul>
   </div>
 {% endblock nav %}
 {% block sidepanel %}
   <div id="index-sidepanel-wrapper">
-    <div id="index-sidepanel-profile" class="sidepanel-item-wrapper">
+    {% comment %} <div id="index-sidepanel-profile" class="sidepanel-item-wrapper">
       <div class="sidepanel-item-header">
         <h2>
           <span>About Me</span>
@@ -41,7 +41,7 @@
         <p>{{ profile.biography|safe_markdown }}</p>
       </div>
     </div>
-    <hr class="sidepanel-divider">
+    <hr class="sidepanel-divider"> {% endcomment %}
     <div id="index-sidepanel-archive" class="sidepanel-item-wrapper">
       <div class="sidepanel-item-header">
         <h2>

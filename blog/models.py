@@ -11,7 +11,7 @@ class Profile(models.Model):
         on_delete=models.PROTECT
     )
     website = models.URLField(blank=True)
-    biography = models.CharField(max_length=240, blank=True)
+    biography = models.TextField()
 
     def __str__(self):
         return self.user.get_username()

@@ -1,0 +1,19 @@
+#about-me-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 70ch;
+    & #about-me-header {
+        & h1 {
+            margin: 0;
+        }
+    }
+    & #about-me-content {
+        font-size: 18px;
+        line-height: 1.8;
+        
+
+        & h2 {
+            margin: 0;
+        }
+    }
+}

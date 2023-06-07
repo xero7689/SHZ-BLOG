@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 
-from .models import Post, Tag, Comment, Category
+from .models import Post, Tag, Comment, Category, Profile
 from .forms import CommentForm
 
 
@@ -126,3 +126,12 @@ def tag_detail_view(request, name):
     }
 
     return render(request, 'blog/tagDetail.html', context)
+
+
+def about_view(request):
+    profile = Profile.objects.first()
+
+    context = {
+        'profile': profile
+    }
+    return render(request, 'blog/aboutMe.html', context)
