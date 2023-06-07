@@ -30,6 +30,7 @@
     /* Background colors */
     --color-background-primary: var(--color-gray-100);
     --color-background-secondary: var(--color-gray-200);
+    --color-background-tertiary: var(--color-gray-300);
     --color-background-accent: var(--color-accent-blue);
     --color-background-overlay: rgba(0, 0, 0, 0.2);
 }
@@ -46,7 +47,7 @@ body {
     background-color: var(--color-background-secondary);
     color: #6c6c6c;
     margin: 0;
-} 
+}
 
 footer {
     margin-top: 1rem;
@@ -87,7 +88,7 @@ footer {
     max-width: 30ch;
 }
 
-#index-sidepanel-profile h2{
+#index-sidepanel-profile h2 {
     margin: 0;
 }
 
@@ -95,7 +96,7 @@ footer {
     max-width: 30ch;
 }
 
-#index-sidepanel-archive h2{
+#index-sidepanel-archive h2 {
     margin: 0;
 }
 
@@ -113,7 +114,7 @@ footer {
     max-width: 30ch;
 }
 
-#index-sidepanel-category h2{
+#index-sidepanel-category h2 {
     margin: 0;
 }
 
@@ -149,8 +150,7 @@ footer {
     gap: 1rem;
 }
 
-.pagination {
-}
+.pagination {}
 
 .pagination .step-links {
     display: flex;
@@ -159,8 +159,7 @@ footer {
 
 }
 
-.pagination .step-links .step-links-item {
-}
+.pagination .step-links .step-links-item {}
 
 .post-list {
     padding: 0;
@@ -196,8 +195,8 @@ footer {
     border-radius: 12px;
 }
 
-.post-footer p{
-    font-weight: 500; 
+.post-footer p {
+    font-weight: 500;
     font-size: 16px;
 }
 
@@ -247,6 +246,79 @@ footer {
     line-height: 1.8;
 }
 
+#post-detail-body-wrapper pre {
+    border-radius: 1rem;
+    display: block;
+    overflow-x: auto;
+    padding: 0.8em;
+    /* background: #282b2e; */
+    background-color: var(--color-background-primary);
+    color: #4d4d4c;
+}
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+    color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+    color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+    color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+    color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+    color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+    color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+    color: #8959a8;
+}
+
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
 #post-detail-body-wrapper img {
     max-width: 100%;
     height: auto;
@@ -282,8 +354,7 @@ footer {
     align-items: center;
 }
 
-.tag-list-item-wrapper h3 {
-}
+.tag-list-item-wrapper h3 {}
 
 .tag-list-item-wrapper p {
     margin: 0;
