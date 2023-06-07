@@ -38,12 +38,19 @@
     margin-bottom: 0;
 }
 
-.index-item-divier {
-    border-top: 1px solid #b3b1b1;
+.post-list-item-divider {
     margin: 2rem 0 2rem 0;
+    border: 0;
+    height: 0;
+    border-top: 1px solid var(--color-gray-400);
 }
 
 .post-create-date {
+    margin: 0;
+    color: var(--color-gray-500);
+}
+
+.post-item-title {
     margin: 0;
 }
 
@@ -59,9 +66,13 @@
     border-radius: 12px;
 }
 
-.post-footer p {
+.post-footer {
+    display: flex;
+    justify-content: flex-end;
     font-weight: 500;
     font-size: 16px;
+    font-style: italic;
+    color: var(--color-gray-500);
 }
 
 .post-comment-list {
@@ -102,5 +113,4 @@
 .post-detail-thematic-break hr {
     margin-top: 1rem;
     margin-bottom: 1rem;
-
 }

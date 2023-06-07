@@ -1,8 +1,8 @@
 {% load martortags %}
 <div id="post-body-wrapper">
     <div id="post-detail-header-wrapper">
-        <p>{{ object.created_date }}</p>
-        <h1>{{ object.title }}</h1>
+        <p class="post-create-date">{{ object.created_date }}</p>
+        <h1 class="post-item-title">{{ object.title }}</h1>
         <h2>{{ object.subtitle }}</h2>
     </div>
     <div id="post-detail-body-wrapper">{{ object.body|safe_markdown }}</div>

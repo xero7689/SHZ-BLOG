@@ -4,18 +4,17 @@
         {% for post in posts %}
             <li class="post-item">
                 <p class="post-create-date">{{ post.publish_date }}</p>
-                <h1 class="post-title">
+                <h1 class="post-item-title">
                     <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
                 </h1>
-                <div class="post-body">
-                    {{ post.abstract|safe_markdown }}
-                </div>
+                <div class="post-body">{{ post.abstract|safe_markdown }}</div>
                 <div class="post-footer">
-                    <p>
-                        <a href='{{ post.get_absolute_url }}'>Read More</a>
-                    </p>
+                    <a href='{{ post.get_absolute_url }}'>
+                        <i class="fa-sharp fa-solid fa-angle-right"></i>
+                        <span>Read More</span>
+                    </a>
                 </div>
-                <hr class="index-item-divier">
+                <hr class="post-list-item-divider">
             </li>
         {% endfor %}
     </ul>
