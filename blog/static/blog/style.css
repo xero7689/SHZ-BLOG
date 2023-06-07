@@ -46,6 +46,11 @@ body {
     background-color: var(--color-background-secondary);
     color: #6c6c6c;
     margin: 0;
+} 
+
+footer {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 #appbar-wrapper {
@@ -142,6 +147,19 @@ body {
 #date-parameter-wrapper {
     display: flex;
     gap: 1rem;
+}
+
+.pagination {
+}
+
+.pagination .step-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem 1rem;
+
+}
+
+.pagination .step-links .step-links-item {
 }
 
 .post-list {

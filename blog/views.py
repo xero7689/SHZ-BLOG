@@ -14,6 +14,7 @@ class index(ListView):
     model = Post
     context_object_name = 'posts'
     template_name = 'blog/index.html'
+    paginate_by = 7
 
     def get_queryset(self):
         year = self.kwargs.get('year', None)

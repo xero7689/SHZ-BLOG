@@ -107,6 +107,7 @@
     {% endif %}
     {% include "blog/postList.html" with posts=posts %}
   </div>
+  {% include "blog/postListPaginator.html" with page_obj=page_obj %}
 {% endblock main %}
 {% block footer %}
   <div id="footer-wrapper">
