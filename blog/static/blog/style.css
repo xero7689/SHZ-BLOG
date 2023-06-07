@@ -246,14 +246,14 @@ footer {
     line-height: 1.8;
 }
 
-#post-detail-body-wrapper pre {
+pre {
     border-radius: 1rem;
     display: block;
     overflow-x: auto;
     padding: 0.8em;
-    /* background: #282b2e; */
-    background-color: var(--color-background-primary);
+    background-color: rgb(238, 238, 238);
     color: #4d4d4c;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 /* Tomorrow Comment */
