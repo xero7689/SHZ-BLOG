@@ -16,7 +16,16 @@ class index(ListView):
     template_name = 'blog/index.html'
     paginate_by = 7
 
-    def get_queryset(self):
+    def get(self, request, *args, **kwargs):
+        search_query = self.request.GET.get('q', None)
+        if search_query:
+            self.object_list = self.get_queryset().filter(title__icontains=search_query)
+            return self.render_to_response(self.get_context_data(search_query=search_query))
+        else:
+            self.object_list = self.get_queryset()
+            return self.render_to_response(self.get_context_data())
+
+    def get_queryset(self, *args, **kwargs):
         year = self.kwargs.get('year', None)
         month = self.kwargs.get('month', None)
 
@@ -29,8 +38,9 @@ class index(ListView):
 
         return query_set.filter(published=True)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['search_query'] = kwargs.get('search_query', None)
 
         # Date Parameter
         date_parameter = {}
@@ -38,6 +48,8 @@ class index(ListView):
             date_parameter['year'] = self.kwargs['year']
             if 'month' in self.kwargs:
                 date_parameter['month'] = self.kwargs['month']
+
+        context['date_parameter'] = date_parameter
 
         return context
 
@@ -52,8 +64,10 @@ class postDetailView(DetailView):
         comments = Comment.objects.filter(post=self.get_object())
 
         current_post = self.object
-        previous_post = Post.objects.filter(publish_date__lt=current_post.publish_date, published=True).order_by('publish_date').last()
-        next_post = Post.objects.filter(publish_date__gt=current_post.publish_date, published=True).order_by('publish_date').first()
+        previous_post = Post.objects.filter(
+            publish_date__lt=current_post.publish_date, published=True).order_by('publish_date').last()
+        next_post = Post.objects.filter(
+            publish_date__gt=current_post.publish_date, published=True).order_by('publish_date').first()
 
         context['form'] = CommentForm()
         context['comments'] = comments
