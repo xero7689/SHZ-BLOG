@@ -20,7 +20,11 @@ class index(ListView):
         search_query = self.request.GET.get('q', None)
         if search_query:
             self.object_list = self.get_queryset().filter(title__icontains=search_query)
-            return self.render_to_response(self.get_context_data(search_query=search_query))
+            if not self.object_list:
+                not_found_message = f'No results found for your search query {search_query}'
+            else:
+                not_found_message = ''
+            return self.render_to_response(self.get_context_data(search_query=search_query, not_found_message=not_found_message))
         else:
             self.object_list = self.get_queryset()
             return self.render_to_response(self.get_context_data())
@@ -41,6 +45,7 @@ class index(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = kwargs.get('search_query', None)
+        context['not_found_message'] = kwargs.get('not_found_message', '')
 
         # Date Parameter
         date_parameter = {}
