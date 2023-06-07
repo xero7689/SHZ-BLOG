@@ -10,6 +10,8 @@ body {
     background-color: var(--color-background-secondary);
     color: #6c6c6c;
     margin: 0;
+
+    font-family: "Helvetica", "Arial", "Noto Sans TC";
 }
 
 footer {

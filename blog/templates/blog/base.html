@@ -17,12 +17,12 @@
       <link rel="stylesheet" href={% static "blog/post.css" %}>
       <link rel="stylesheet" href={% static "blog/tag.css" %}>
       <link rel="stylesheet" href={% static "blog/hljs_tomorrow.css" %}>
-
       <!-- Web 3rd Party CSS-->
       <link href="{% static 'fontawesome-free-6.4.0-web/css/all.css' %}"
             rel="stylesheet"></link>
-    <!-- Martor Viewer CSS Static Loading-->
-
+      <!-- Web Font -->
+      <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Noto+Sans+TC">
   {% endblock css %}
   {% block js %}
     <script type="text/javascript"
@@ -31,7 +31,6 @@
     <script type="text/javascript"
             src="{% static 'plugins/js/highlight.min.js' %}"></script>
     <!-- Martor Editor Form JS-->
-
     <script>
       window.onload = () => {
       $('pre').each((i, block) => {
