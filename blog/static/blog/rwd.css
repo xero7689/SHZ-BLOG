@@ -98,4 +98,9 @@
             font-weight: normal;
         }
     }
+
+    .sidepanel-item-wrapper {
+        width: 100%;
+        max-width: None;
+    }
 }

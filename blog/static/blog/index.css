@@ -1,6 +1,4 @@
 .sidepanel-item-wrapper {
-    max-width: 41ch;
-
     & h2 {
         margin: 0;
     }
@@ -42,6 +40,7 @@
                 border: 0;
                 -webkit-appearance: none;
                 background-color: var(--color-gray-300);
+                width: 100%;
             }
 
             & .submit {
