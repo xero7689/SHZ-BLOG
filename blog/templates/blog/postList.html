@@ -2,20 +2,30 @@
 <div id="post-list-wrapper">
     <ul class="post-list">
         {% for post in posts %}
-            <li class="post-item">
-                <p class="post-create-date">{{ post.publish_date }}</p>
-                <h1 class="post-item-title">
-                    <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
-                </h1>
-                <div class="post-body">{{ post.abstract|safe_markdown }}</div>
-                <div class="post-footer">
+            <li class="post-list-item">
+                <div class="post-list-item-header">
+                    <h1 class="post-list-item-title">
+                        <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
+                    </h1>
+                </div>
+                <div class="post-list-item-meta">
+                    <span class="post-list-item-meta-date">{{ post.publish_date }}</span>
+                    {% for tag in post.tags.all %}
+                        <div class="post-list-item-tag-group">
+                            <i class="fa-solid fa-tag"></i>
+                            <span>{{ tag.name }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="post-list-item-body">{{ post.abstract|safe_markdown }}</div>
+                <div class="post-list-item-footer">
                     <a href='{{ post.get_absolute_url }}'>
                         <i class="fa-sharp fa-solid fa-angle-right"></i>
-                        <span>Read More</span>
+                        <span>閱讀更多</span>
                     </a>
                 </div>
-                <hr class="post-list-item-divider">
             </li>
+            <hr class="post-list-item-divider">
         {% endfor %}
     </ul>
 </div>

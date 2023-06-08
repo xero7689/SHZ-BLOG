@@ -1,8 +1,18 @@
 {% load martortags %}
 <div id="post-body-wrapper">
     <div id="post-detail-header-wrapper">
-        <p class="post-create-date">{{ object.created_date }}</p>
-        <h1 class="post-item-title">{{ object.title }}</h1>
+        <div class="post-list-item-header">
+            <h1 class="post-list-item-title">{{ object.title }}</h1>
+        </div>
+        <div class="post-list-item-meta">
+            <span class="post-list-item-meta-date">{{ object.publish_date }}</span>
+            {% for tag in object.tags.all %}
+                <div class="post-list-item-tag-group">
+                    <i class="fa-solid fa-tag"></i>
+                    <span>{{ tag.name }}</span>
+                </div>
+            {% endfor %}
+        </div>
         <h2>{{ object.subtitle }}</h2>
     </div>
     <div id="post-detail-body-wrapper">{{ object.body|safe_markdown }}</div>

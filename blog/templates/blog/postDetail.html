@@ -5,7 +5,7 @@
 {% block main %}
   <div id="post-detail-wrapper">
     {% include "blog/postBody.html" with object=object %}
-    {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
+    {% comment %} {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %} {% endcomment %}
     <div class="post-detail-thematic-break">
       <hr />
     </div>
