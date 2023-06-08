@@ -17,6 +17,7 @@
       <link rel="stylesheet" href={% static "blog/post.css" %}>
       <link rel="stylesheet" href={% static "blog/tag.css" %}>
       <link rel="stylesheet" href={% static "blog/hljs_tomorrow.css" %}>
+      <link rel="stylesheet" href={% static "blog/rwd.css" %}>
       <!-- Web 3rd Party CSS-->
       <link href="{% static 'fontawesome-free-6.4.0-web/css/all.css' %}"
             rel="stylesheet"></link>
@@ -39,39 +40,39 @@
     };
     </script>
   {% endblock js %}
-</head>
-<body id="body">
-  <div id="nav">
-    <div id="appbar-wrapper">
-      <header id="header">
-        {% block header %}
-          <h1>Default Header</h1>
-        {% endblock header %}
-      </header>
-      <nav>
-        {% block nav %}
-        {% endblock nav %}
-      </nav>
-    </div>
-  </div>
-  <div id="content-wrapper">
-    <main>
-      <div id="breadcrumbs-wrapper">
-        {% block breadcrumbs %}
-        {% endblock breadcrumbs %}
+  </head>
+  <body id="body">
+    <div id="nav">
+      <div id="appbar-wrapper">
+        <header id="header">
+          {% block header %}
+            <h1>Default Header</h1>
+          {% endblock header %}
+        </header>
+        <nav>
+          {% block nav %}
+          {% endblock nav %}
+        </nav>
       </div>
-      {% block main %}
-      {% endblock main %}
-    </main>
-    <div id="content-divider"></div>
-    <aside>
-      {% block sidepanel %}
-      {% endblock sidepanel %}
-    </aside>
-  </div>
-  <footer>
-    {% block footer %}
-    {% endblock footer %}
-  </footer>
-</body>
+    </div>
+    <div id="content-wrapper">
+      <main>
+        <div id="breadcrumbs-wrapper">
+          {% block breadcrumbs %}
+          {% endblock breadcrumbs %}
+        </div>
+        {% block main %}
+        {% endblock main %}
+      </main>
+      <div id="content-divider"></div>
+      <aside>
+        {% block sidepanel %}
+        {% endblock sidepanel %}
+      </aside>
+    </div>
+    <footer>
+      {% block footer %}
+      {% endblock footer %}
+    </footer>
+  </body>
 </html>
