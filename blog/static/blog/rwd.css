@@ -1,6 +1,18 @@
-@media screen and (max-device-width: 800px) {
+@media screen and (max-device-width: 600px) {
     h1 {
-        font-size: 3rem;
+        font-size: 4rem;
+    }
+
+    h2 {
+        font-size: 3.75rem;
+    }
+
+    h3 {
+        font-size: 3.5rem;
+    }
+
+    p, span, li{
+        font-size: 2.5rem;
     }
 
     #nav {
@@ -28,7 +40,6 @@
 
             & nav {
                 font-size: 2rem;
-                border: 2px dashed grey;
 
                 & .nav-list {
                     margin: 0;
@@ -45,12 +56,46 @@
     }
 
     #content-wrapper {
-        border: 2px dashed orange;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 2rem 2rem;
+        /* gap: 2rem 2rem; */
         margin-top: 2rem;
-        flex-grow: 1;
+        /* flex-grow: 1; */
+        max-width: 100ch;
+        /* width: 100%; */
+
+        padding: 0;
+
+        & h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-weight: 500;
+        }
+    }
+
+    #post-detail-header-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #post-detail-bottom-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    #post-detail-bottom-nav .nav-item-wrapper {
+        font-size: 2.5rem;
+
+        & span {
+            font-size: 2.5rem;
+            font-weight: normal;
+        }
     }
 }

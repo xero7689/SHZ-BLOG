@@ -30,8 +30,9 @@
   </div>
 {% endblock nav %}
 {% block sidepanel %}
-  <div id="index-sidepanel-search" class="sidepanel-item-wrapper">
-    {% comment %} <div id="index-sidepanel-profile" class="sidepanel-item-wrapper">
+  <aside>
+    <div id="index-sidepanel-search" class="sidepanel-item-wrapper">
+      {% comment %} <div id="index-sidepanel-profile" class="sidepanel-item-wrapper">
       <div class="sidepanel-item-header">
         <h2>
           <span>About Me</span>
@@ -41,68 +42,69 @@
         <p>{{ profile.biography|safe_markdown }}</p>
       </div>
     </div>
-    <hr class="sidepanel-divider"> {% endcomment %}
-    <div class="sidepanel-item-header">
-      <h2>
-        <span>Search</span>
-      </h2>
+      <hr class="sidepanel-divider"> {% endcomment %}
+      <div class="sidepanel-item-header">
+        <h2>
+          <span>Search</span>
+        </h2>
+      </div>
+      <div class="sidepanel-item-content">
+        <form action="{% url 'index' %}" method="get">
+          {% csrf_token %}
+          <input type="search" class="search" name="q">
+          <button type="submit" class="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
     </div>
-    <div class="sidepanel-item-content">
-      <form action="{% url 'index' %}" method="get">
-        {% csrf_token %}
-        <input type="search" class="search" name="q">
-        <button type="submit" class="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
+    <hr class="sidepanel-divider">
+    <div id="index-sidepanel-archive" class="sidepanel-item-wrapper">
+      <div class="sidepanel-item-header">
+        <h2>
+          <span>Archive</span>
+        </h2>
+      </div>
+      <div id="index-sidepanel-archive-list-wrapper"
+           class="sidepanel-item-content">
+        {% for year, months in archive.items %}
+          <ul>
+            {% for month, posts in months.items %}
+              <li>
+                <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
+                <ul>
+                  {% for post in posts %}
+                    <li>
+                      <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
     </div>
-  </div>
-  <hr class="sidepanel-divider">
-  <div id="index-sidepanel-archive" class="sidepanel-item-wrapper">
-    <div class="sidepanel-item-header">
-      <h2>
-        <span>Archive</span>
-      </h2>
-    </div>
-    <div id="index-sidepanel-archive-list-wrapper"
-         class="sidepanel-item-content">
-      {% for year, months in archive.items %}
+    <hr class="sidepanel-divider">
+    <div id="index-sidepanel-category" class="sidepanel-item-wrapper">
+      <div id="index-sidepanel-category-header-wrapper"
+           class="sidepanel-item-header">
+        <h2>Category</h2>
+      </div>
+      <div class="sidepanel-item-content">
         <ul>
-          {% for month, posts in months.items %}
+          {% for category in categories %}
             <li>
-              <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
-              <ul>
-                {% for post in posts %}
-                  <li>
-                    <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
-                  </li>
-                {% endfor %}
-              </ul>
+              <a href={{ category.get_absolute_url }}>{{ category }}</a>
             </li>
           {% endfor %}
         </ul>
-      {% endfor %}
+      </div>
     </div>
-  </div>
-  <hr class="sidepanel-divider">
-  <div id="index-sidepanel-category" class="sidepanel-item-wrapper">
-    <div id="index-sidepanel-category-header-wrapper"
-         class="sidepanel-item-header">
-      <h2>Category</h2>
-    </div>
-    <div class="sidepanel-item-content">
-      <ul>
-        {% for category in categories %}
-          <li>
-            <a href={{ category.get_absolute_url }}>{{ category }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
+  </aside>
 {% endblock sidepanel %}
 {% block breadcrumbs %}
-  {% if request.path != '/blog/' %}
+  {% comment %} {% if request.path != '/blog/' %}
     <nav id="breadcrumbs">
       {% for path in breadcrumb_path %}
         {% if forloop.last %}
@@ -113,7 +115,7 @@
         {% endif %}
       {% endfor %}
     </nav>
-  {% endif %}
+  {% endif %} {% endcomment %}
 {% endblock breadcrumbs %}
 {% block main %}
   <div id="index-main-wrapper">

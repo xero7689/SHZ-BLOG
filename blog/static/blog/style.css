@@ -6,7 +6,7 @@ a {
 h1,
 h2,
 h3 {
-    color: var(--color-gray-700);
+    color: var(--color-gray-600);
 }
 
 body {
@@ -16,7 +16,7 @@ body {
     background-color: var(--color-background-secondary);
     margin: 0;
 
-    font-family: "Helvetica", "Arial", "Noto Sans TC";
+    font-family: "Arial", "Noto Sans TC";
     color: var(--color-gray-600);
 }
 
@@ -25,7 +25,7 @@ footer {
     margin-bottom: 1rem;
 }
 
-@media screen and (min-device-width: 800px) {
+@media screen and (min-device-width: 600px) {
     #nav {
         width: 100%;
         position: sticky;
@@ -57,7 +57,7 @@ footer {
     .nav-item {
         display: inline-block;
         list-style-type: none;
-        font-weight: bold;
+        /* font-weight: bold; */
         margin-left: 1rem;
     }
 }
@@ -81,12 +81,11 @@ footer {
 
 #content-wrapper {
     display: flex;
-    justify-content: center;
     gap: 2rem 2rem;
-    padding: 0 2rem 0 2rem;
     margin-top: 2rem;
     flex-grow: 1;
     max-width: 1200px;
+    padding: 1rem;
 }
 
 #date-parameter-wrapper {
@@ -98,7 +97,6 @@ footer {
     display: flex;
     justify-content: space-between;
     gap: 1rem 1rem;
-
 }
 
 #cateogry-detail-wrapper {

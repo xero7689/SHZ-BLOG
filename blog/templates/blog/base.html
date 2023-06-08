@@ -40,39 +40,36 @@
     };
     </script>
   {% endblock js %}
-  </head>
-  <body id="body">
-    <div id="nav">
-      <div id="appbar-wrapper">
-        <header id="header">
-          {% block header %}
-            <h1>Default Header</h1>
-          {% endblock header %}
-        </header>
-        <nav>
-          {% block nav %}
-          {% endblock nav %}
-        </nav>
+</head>
+<body id="body">
+  <div id="nav">
+    <div id="appbar-wrapper">
+      <header id="header">
+        {% block header %}
+          <h1>Default Header</h1>
+        {% endblock header %}
+      </header>
+      <nav>
+        {% block nav %}
+        {% endblock nav %}
+      </nav>
+    </div>
+  </div>
+  <div id="content-wrapper">
+    <main>
+      <div id="breadcrumbs-wrapper">
+        {% block breadcrumbs %}
+        {% endblock breadcrumbs %}
       </div>
-    </div>
-    <div id="content-wrapper">
-      <main>
-        <div id="breadcrumbs-wrapper">
-          {% block breadcrumbs %}
-          {% endblock breadcrumbs %}
-        </div>
-        {% block main %}
-        {% endblock main %}
-      </main>
-      <div id="content-divider"></div>
-      <aside>
-        {% block sidepanel %}
-        {% endblock sidepanel %}
-      </aside>
-    </div>
-    <footer>
-      {% block footer %}
-      {% endblock footer %}
-    </footer>
-  </body>
+      {% block main %}
+      {% endblock main %}
+    </main>
+    {% block sidepanel %}
+    {% endblock sidepanel %}
+  </div>
+  <footer>
+    {% block footer %}
+    {% endblock footer %}
+  </footer>
+</body>
 </html>

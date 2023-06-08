@@ -13,7 +13,9 @@
                 </div>
             {% endfor %}
         </div>
-        <h2>{{ object.subtitle }}</h2>
+        {% if object.subtitle %}<h2>{{ object.subtitle }}</h2>{% endif %}
     </div>
-    <div id="post-detail-body-wrapper">{{ object.body|safe_markdown }}</div>
+    <div id="post-detail-body-wrapper" class="post-markdown-style">
+        {{ object.body|safe_markdown }}
+    </div>
 </div>
