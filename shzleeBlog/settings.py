@@ -176,7 +176,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 Martor Editor Settings
 """
 # Choices are: "semantic", "bootstrap"
-MARTOR_THEME = 'bootstrap'
+MARTOR_THEME = 'semantic'
 
 # Global martor settings
 # Input: string boolean, `true/false`
