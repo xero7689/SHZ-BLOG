@@ -1,7 +1,10 @@
-from .models import Profile, Post, Category
+from .models import Blog, Profile, Post, Category
 
 
 def index(request):
+    # Blog
+    blog = Blog.objects.first()
+
     # About Me
     profile = Profile.objects.first()
 
@@ -30,6 +33,7 @@ def index(request):
         })
 
     return {
+        'blog': blog,
         'profile': profile,
         'archive': aggregated_data,
         'categories': categories,

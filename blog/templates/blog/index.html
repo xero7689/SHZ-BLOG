@@ -2,12 +2,17 @@
 {% load martortags %}
 {% load blog_extras %}
 {% block head %}
-  <title>{{ post.title }}</title>
+  {% if post %}
+    <title>{{ post.title }}</title>
+  {% else %}
+    <title>{{ profile.blog_title }}</title>
+  {% endif %}
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
     <a href="{% url 'index' %}">
-      <h1 class="site-header-text">shzlee.com</h1>
+      <h1 class="site-header-text">{{ blog.blog_title }}</h1>
+      <h3 class="site-header-text">{{ blog.blog_subtitle }}</h2>
     </a>
   </div>
 {% endblock header %}

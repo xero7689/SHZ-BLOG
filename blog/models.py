@@ -5,13 +5,34 @@ from django.urls import reverse
 from martor.models import MartorField
 
 
+class Blog(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.PROTECT
+    )
+
+    blog_title = models.CharField(
+        max_length=32, default="Blog Title", unique=True)
+    blog_subtitle = models.CharField(max_length=64, default="Blog Subtitle")
+    blog_meta_description = models.CharField(
+        max_length=128, default="Blog <meta> description")
+    blog_meta_keywords = models.CharField(max_length=128, default="blog")
+
+    def __str__(self):
+        return self.blog_title
+
+
 class Profile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT
     )
+    nickname = models.CharField(max_length=16, default="Author Nick Name")
     website = models.URLField(blank=True)
     biography = models.TextField()
+
+    twitter_name = models.CharField(max_length=64, blank=True)
+    facebook_name = models.CharField(max_length=64, blank=True)
 
     def __str__(self):
         return self.user.get_username()
@@ -34,6 +55,16 @@ class Category(models.Model):
         return reverse("category_detail", kwargs={"name": self.name})
 
 
+class Image(models.Model):
+    name = models.CharField(max_length=64)
+    description = models.TextField(blank=True)
+    image = models.ImageField(upload_to="images")
+    upload_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     class Meta:
         ordering = ['-publish_date']
@@ -53,6 +84,8 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
+
+    cover_image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={
@@ -75,9 +108,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author}:「{self.body[:20]}...」'
-
-
-class Image(models.Model):
-    name = models.CharField(max_length=64)
-    image = models.ImageField(upload_to="images")
-    upload_at = models.DateTimeField(auto_now_add=True)

@@ -5,9 +5,19 @@ from PIL import Image as PilImage
 
 from martor.widgets import AdminMartorWidget
 
-from .models import Profile, Tag, Post, Comment, Category, Image
+from .models import Blog, Profile, Tag, Post, Comment, Category, Image
 
 # Register your models here.
+
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'user',
+        'blog_title',
+        'blog_subtitle'
+    ]
 
 
 @admin.register(Profile)
@@ -16,7 +26,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'id',
         'user',
         'website',
-        'biography'
+        'biography',
     ]
 
     formfield_overrides = {

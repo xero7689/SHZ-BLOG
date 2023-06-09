@@ -4,6 +4,7 @@
         {% for post in posts %}
             <li class="post-list-item">
                 <div class="post-list-item-header">
+                    <img src="{{ post.cover_image.image.url }}">
                     <h1 class="post-list-item-title">
                         <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
                     </h1>
