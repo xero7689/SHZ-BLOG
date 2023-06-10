@@ -1,6 +1,11 @@
 from django.utils import timezone
 from .models import Visitor
 
+import logging
+
+logger = logging.getLogger(__name__)
+logger.info(__name__)
+
 
 class VisitorTrackingMiddleware:
     def __init__(self, get_response):
@@ -10,6 +15,8 @@ class VisitorTrackingMiddleware:
         user_agent = request.META.get('HTTP_USER_AGENT', '')
         remote_addr = request.META.get('REMOTE_ADDR', '')
         http_referer = request.META.get('HTTP_REFERER', '')
+
+        logger.info(remote_addr)
 
         Visitor.objects.create(
             user_agent=user_agent,
