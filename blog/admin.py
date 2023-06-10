@@ -5,7 +5,7 @@ from PIL import Image as PilImage
 
 from martor.widgets import AdminMartorWidget
 
-from .models import Blog, Profile, Tag, Post, Comment, Category, Image
+from .models import Blog, Profile, Tag, Post, Comment, Category, Image, Visitor
 
 # Register your models here.
 
@@ -112,3 +112,13 @@ class ImageAdmin(admin.ModelAdmin):
         return obj.image.url
 
     image_url.short_description = "Image URL"
+
+
+@admin.register(Visitor)
+class VisitorAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'user_agent',
+        'remote_addr',
+        'http_referer',
+    ]
