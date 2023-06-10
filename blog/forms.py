@@ -9,6 +9,5 @@ class CommentForm(forms.Form):
 
     def save(self, post_obj):
         data = self.cleaned_data
-        print(data)
         comment = Comment(author=data['author'], body=data['body'], post=post_obj)
         comment.save()

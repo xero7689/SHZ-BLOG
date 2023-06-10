@@ -57,6 +57,8 @@ class PostAdmin(admin.ModelAdmin):
         "title",
         "subtitle",
         "slug",
+        "created_date",
+        "modified_date",
         "publish_date",
         "published"
     ]
