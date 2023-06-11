@@ -11,12 +11,15 @@
                 </div>
                 <div class="post-list-item-meta">
                     <span class="post-list-item-meta-date">{{ post.created_date }}</span>
-                    {% for tag in post.tags.all %}
+
+                    {% if post.category %}
                         <div class="post-list-item-tag-group">
-                            <i class="fa-solid fa-tag"></i>
-                            <span>{{ tag.name }}</span>
+                            <a href="{% url 'category_detail' name=post.category.name %}">
+                                <i class="fa-solid fa-folder-open"></i>
+                                <span>{{ post.category.name }}</span>
+                            </a>
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="post-list-item-body post-markdown-style">{{ post.abstract|safe_markdown }}</div>
                 <div class="post-list-item-footer">
