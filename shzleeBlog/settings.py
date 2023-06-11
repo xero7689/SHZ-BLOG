@@ -33,6 +33,7 @@ IN_CONTAINER = environment.IN_CONTAINER
 IS_LOCAL = True if not IN_CONTAINER else False
 if IN_CONTAINER:
     CONTAINER_STORAGE_PATH = environment.CONTAINER_STORAGE_PATH
+    LOGGING_FILE_NAME = environment.LOGGING_FILE_NAME
 
 USE_S3 = True if environment.AWS_S3_REGION else False
 
@@ -159,7 +160,7 @@ if USE_S3:
 else:
     if IN_CONTAINER:
         STATIC_ROOT = os.path.join(CONTAINER_STORAGE_PATH, 'static')
-        MEDIA_ROOT = os.patch.join(CONTAINER_STORAGE_PATH, 'media')
+        MEDIA_ROOT = os.path.join(CONTAINER_STORAGE_PATH, 'media')
     else:
         STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
         MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
@@ -176,6 +177,52 @@ if IN_CONTAINER:
     logging_file_path = CONTAINER_STORAGE_PATH
 else:
     logging_file_path = os.path.join(os.path.join(BASE_DIR, 'logging'), 'blog.log')
+    print(logging_file_path)
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'generic': {
+            'format': '[{asctime}][{levelname}] - {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'generic',
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': logging_file_path,
+        }
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING'
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+        "blog.middleware": {  # Control the behavior of logger in module
+            "handlers": ['console', 'file'],
+            "level": "INFO",
+        },
+    }
+}
+
+
+# Logging
+if IN_CONTAINER:
+    logging_file_path = os.path.join(CONTAINER_STORAGE_PATH, LOGGING_FILE_NAME)
+else:
+    logging_file_path = os.path.join(
+        os.path.join(BASE_DIR, 'logging'), 'blog.log')
     print(logging_file_path)
 
 LOGGING = {

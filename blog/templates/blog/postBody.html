@@ -6,7 +6,7 @@
             <h1 class="post-list-item-title">{{ object.title }}</h1>
         </div>
         <div class="post-list-item-meta">
-            <span class="post-list-item-meta-date">{{ object.publish_date }}</span>
+            <span class="post-list-item-meta-date">{{ object.created_date }}</span>
             {% for tag in object.tags.all %}
                 <div class="post-list-item-tag-group">
                     <i class="fa-solid fa-tag"></i>

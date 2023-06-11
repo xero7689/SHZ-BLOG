@@ -11,4 +11,4 @@ class PostSitemap(Sitemap):
         return Post.objects.all()
 
     def lastmod(self, obj):
-        return obj.publish_date
+        return obj.created_date

@@ -20,6 +20,7 @@ services:
       IN_CONTAINER:
       IS_DEBUG:
       CONTAINER_STORAGE_PATH:
+      LOGGING_FILE_NAME:
       DEPLOY_STAGE:
       DATABASE_URI:
       DATABASE_DB_NAME:

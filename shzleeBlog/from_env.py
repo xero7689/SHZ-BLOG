@@ -9,6 +9,7 @@ IS_DEBUG = (os.environ.get('IS_DEBUG', 'True') == 'True')
 IN_CONTAINER = os.environ.get('IN_CONTAINER', False)
 if IN_CONTAINER:
     CONTAINER_STORAGE_PATH = os.environ.get('CONTAINER_STORAGE_PATH', '')
+    LOGGING_FILE_NAME = os.environ.get('LOGGIN_FILE_NAME', 'app.log')
 
 # Database Settings
 DATABASE_DB_NAME = os.environ.get('DATABASE_DB_NAME', 'for-development')

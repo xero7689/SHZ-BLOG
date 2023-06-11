@@ -36,9 +36,9 @@ class index(ListView):
         query_set = super().get_queryset()
 
         if year:
-            query_set = query_set.filter(publish_date__year=year)
+            query_set = query_set.filter(created_date__year=year)
             if month:
-                query_set = query_set.filter(publish_date__month=month)
+                query_set = query_set.filter(created_date__month=month)
 
         return query_set.filter(published=True)
 
@@ -70,9 +70,9 @@ class postDetailView(DetailView):
 
         current_post = self.object
         previous_post = Post.objects.filter(
-            publish_date__lt=current_post.publish_date, published=True).order_by('publish_date').last()
+            created_date__lt=current_post.created_date, published=True).order_by('created_date').last()
         next_post = Post.objects.filter(
-            publish_date__gt=current_post.publish_date, published=True).order_by('publish_date').first()
+            created_date__gt=current_post.created_date, published=True).order_by('created_date').first()
 
         context['form'] = CommentForm()
         context['comments'] = comments

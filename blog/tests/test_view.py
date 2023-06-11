@@ -54,7 +54,7 @@ class TestIndexView(TestCase):
         post1 = Post.objects.get(slug="test-post-1")
         post2 = Post.objects.get(slug="test-post-2")
 
-        post2.publish_date = post1.publish_date - timezone.timedelta(days=1)
+        post2.created_date = post1.publish_date - timezone.timedelta(days=1)
         post2.save()
 
         response = self.client.get(reverse('index'))
@@ -62,11 +62,11 @@ class TestIndexView(TestCase):
 
     def test_get_queryset_returns_posts_filtered_by_year_and_month(self):
         post1 = Post.objects.get(slug="test-post-1")
-        post1.publish_date = timezone.datetime(2000, 1, 1, tzinfo=timezone.utc)
+        post1.created_date = timezone.datetime(2000, 1, 1, tzinfo=timezone.utc)
         post1.save()
 
         post2 = Post.objects.get(slug="test-post-2")
-        post2.publish_date = timezone.datetime(2001, 1, 1, tzinfo=timezone.utc)
+        post2.created_date = timezone.datetime(2001, 1, 1, tzinfo=timezone.utc)
         post2.save()
 
         response1 = self.client.get(reverse('index', kwargs={"year": "2000"}))
