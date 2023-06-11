@@ -20,12 +20,14 @@
     </div>
     <div id="post-detail-body-wrapper" class="post-markdown-style">{{ object.body|safe_markdown }}</div>
     <div id="post-detail-body-tags-wrapper">
+        <i class="fa-solid fa-tag"></i>
         <h3>Tags:</h3>
         <div id="post-detail-body-tags-list">
         {% for tag in object.tags.all %}
             <div class="post-list-item-tag-group">
-                {% comment %} <i class="fa-solid fa-tag"></i> {% endcomment %}
+                <a href="{% url 'tag_detail' name=tag.name %}">
                 <span class="post-detail-body-tag-item">{{ tag.name }}</span>
+                </a>
             </div>
         {% endfor %}
         </div>
