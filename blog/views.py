@@ -127,7 +127,7 @@ def category_detail_view(request, name):
         'posts': posts
     }
 
-    return render(request, 'blog/CategoryDetail.html', context)
+    return render(request, 'blog/categoryDetail.html', context)
 
 
 class TagsListView(ListView):
