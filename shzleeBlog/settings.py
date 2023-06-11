@@ -38,6 +38,7 @@ if IN_CONTAINER:
 USE_S3 = True if environment.AWS_S3_REGION else False
 
 ALLOWED_HOSTS = ["*"]
+DJANGO_ADMIN_URL_PATH = environment.DJANGO_ADMIN_URL_PATH
 
 
 # Application definition

@@ -22,9 +22,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from django.views.generic.base import RedirectView
-
-from blog.views import about_view
 from blog.sitemaps import PostSitemap
 
 sitemaps = {
@@ -32,11 +29,9 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/blog/', permanent=True)),
-    path('blog/', include('blog.urls')),
-    path('about/', about_view, name='about'),
+    path('', include('blog.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
-    path('admin/', admin.site.urls),
+    path(settings.DJANGO_ADMIN_URL_PATH, admin.site.urls),
     path('martor/', include('martor.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,6 +11,8 @@ if IN_CONTAINER:
     CONTAINER_STORAGE_PATH = os.environ.get('CONTAINER_STORAGE_PATH', '')
     LOGGING_FILE_NAME = os.environ.get('LOGGIN_FILE_NAME', 'app.log')
 
+DJANGO_ADMIN_URL_PATH = os.environ.get('DJANGO_ADMIN_URL_PATH', 'admin/')
+
 # Database Settings
 DATABASE_DB_NAME = os.environ.get('DATABASE_DB_NAME', 'for-development')
 DATABASE_USER = os.environ.get('DATABASE_USER', 'devel')

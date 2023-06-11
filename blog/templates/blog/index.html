@@ -52,7 +52,7 @@
         <h2>Search</h2>
       </div>
       <div class="sidepanel-item-content">
-        <form action="{% url 'index' %}" method="get">
+        <form action="{% url 'posts' %}" method="get">
           {% csrf_token %}
           <input type="search" class="search" name="q">
           <button type="submit" class="submit">
@@ -72,7 +72,7 @@
           <ul>
             {% for month, posts in months.items %}
               <li>
-                <a href={% url 'index' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
+                <a href={% url 'posts' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
                 <ul>
                   {% for post in posts %}
                     <li>

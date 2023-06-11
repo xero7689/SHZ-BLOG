@@ -47,7 +47,7 @@ class TestIndexView(TestCase):
         post2.tags.add(tag2)
 
     def test_get_queryset_returns_published_posts_only(self):
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('posts'))
         self.assertEqual(len(response.context['posts']), 1)
 
     def test_get_queryset_returns_posts_sorted_by_publish_date(self):
@@ -57,7 +57,7 @@ class TestIndexView(TestCase):
         post2.created_date = post1.publish_date - timezone.timedelta(days=1)
         post2.save()
 
-        response = self.client.get(reverse('index'))
+        response = self.client.get(reverse('posts'))
         self.assertEqual(list(response.context['posts']), [post1])
 
     def test_get_queryset_returns_posts_filtered_by_year_and_month(self):
@@ -69,21 +69,21 @@ class TestIndexView(TestCase):
         post2.created_date = timezone.datetime(2001, 1, 1, tzinfo=timezone.utc)
         post2.save()
 
-        response1 = self.client.get(reverse('index', kwargs={"year": "2000"}))
+        response1 = self.client.get(reverse('posts', kwargs={"year": "2000"}))
         self.assertEqual(list(response1.context['posts']), [post1])
 
-        response2 = self.client.get(reverse('index', kwargs={"year": "2000", "month": "1"}))
+        response2 = self.client.get(reverse('posts', kwargs={"year": "2000", "month": "1"}))
         self.assertEqual(list(response2.context['posts']), [post1])
 
     def test_search_query_filters_queryset_by_title(self):
-        response = self.client.get(reverse('index') + "?q=test")
+        response = self.client.get(reverse('posts') + "?q=test")
         self.assertEqual(len(response.context['posts']), 1)
 
     def test_search_query_returns_not_found_message_when_no_results(self):
-        response = self.client.get(reverse('index') + "?q=fail")
+        response = self.client.get(reverse('posts') + "?q=fail")
         self.assertEqual(response.context['not_found_message'], "No results found for your search query fail")
 
     def test_search_query_returns_empty_not_found_message_when_results_found(self):
-        response = self.client.get(reverse('index') + "?q=Test")
+        response = self.client.get(reverse('posts') + "?q=Test")
         self.assertEqual(response.context['not_found_message'], "")
 
