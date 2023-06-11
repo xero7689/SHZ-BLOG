@@ -108,3 +108,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author}:「{self.body[:20]}...」'
+
+
+class Visitor(models.Model):
+    remote_addr = models.CharField(max_length=64)
+    user_agent = models.CharField(max_length=512, blank=True)
+    http_referer = models.CharField(max_length=512, blank=True)
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return f'{self.remote_addr}'
