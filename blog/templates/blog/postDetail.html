@@ -1,43 +1,14 @@
 {% extends "blog/index.html" %}
+{% load martortags %}
+{% block sidepanel %}
+{% endblock sidepanel %}
 {% block main %}
   <div id="post-detail-wrapper">
-    <div id="post-detail-header-wrapper">
-      <h1>{{ object.title }}</h1>
-      <h2>{{ object.subtitle }}</h2>
+    {% include "blog/postBody.html" with object=object %}
+    {% comment %} {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %} {% endcomment %}
+    <div class="post-detail-thematic-break">
+      <hr class="post-list-item-divider">
     </div>
-    <div id="post-detail-body-wrapper">
-      <p class="post-body">{{ post.body }}</p>
-      <p>create at {{ object.created_date }}</p>
-    </div>
-    {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %}
-    <div id="post-comment-wrapper">
-      <div id="post-comment-header-wrapper">
-        <h3>Comments</h3>
-      </div>
-      <div id="post-comment-body-wrapper">
-        <div id="post-comment-body-content-wrapper">
-          <ul class="post-comment-list">
-            {% for comment in comments %}
-              <li class="post-comment-item">
-                <div class="post-comment-item-header">
-                  <p class="post-comment-item-header-author">{{ comment.author }}</p>
-                  <p class="post-comment-item-header-time">{{ comment.comment_at }}</p>
-                </div>
-                <div class="post-comment-item-body">
-                  <p>{{ comment.body }}</p>
-                </div>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-        <div id="post-comment-form-wrapper">
-          <form action='{{ object.get_absolute_url }}' method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Submit">
-          </form>
-        </div>
-      </div>
-    </div>
+    {% include "blog/postDetailBottomNav.html" with prev_post=prev_post next_post=next_post %}
   </div>
 {% endblock main %}

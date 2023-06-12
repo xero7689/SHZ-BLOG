@@ -1,55 +1,159 @@
 {% extends "blog/base.html" %}
+{% load martortags %}
+{% load blog_extras %}
 {% block head %}
-  <title>{{ post.title }}</title>
+  {% if post %}
+    <title>{{ post.title }}</title>
+  {% else %}
+    <title>{{ blog.blog_title }}</title>
+  {% endif %}
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
-    <h1>SHZ Lee</h1>
+    <a href="{% url 'index' %}">
+      <h1 class="site-header-text">{{ blog.blog_title }}</h1>
+      <h3 class="site-header-text">{{ blog.blog_subtitle }}</h2>
+    </a>
   </div>
 {% endblock header %}
 {% block nav %}
   <div id="nav-wrapper">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{% url 'index' %}">HOME</a>
+        <a href="{% url 'posts' %}">文章列表</a>
       </li>
-      <li class="nav-item">
-        <a>ARTWORK</a>
-      </li>
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a>PROJECT</a>
+      </li> {% endcomment %}
+      <li class="nav-item">
+        <a href="{{ profile.website }}">個人經歷</a>
       </li>
       <li class="nav-item">
-        <a>PROFILE</a>
-      </li>
-      <li class="nav-item">
-        <a>CONTACT</a>
+        <a href="{% url 'about' %}">關於我</a>
       </li>
     </ul>
   </div>
 {% endblock nav %}
 {% block sidepanel %}
+  <aside>
+    <div id="index-sidepanel-search" class="sidepanel-item-wrapper">
+      {% comment %} <div id="index-sidepanel-profile" class="sidepanel-item-wrapper">
+      <div class="sidepanel-item-header">
+        <h2>
+          <span>About Me</span>
+        </h2>
+      </div>
+      <div class="sidepanel-item-content">
+        <p>{{ profile.biography|safe_markdown }}</p>
+      </div>
+    </div>
+      <hr class="sidepanel-divider"> {% endcomment %}
+      <div class="sidepanel-item-header">
+        <h2>Search</h2>
+      </div>
+      <div class="sidepanel-item-content">
+        <form action="{% url 'posts' %}" method="get">
+          {% csrf_token %}
+          <input type="search" class="search" name="q">
+          <button type="submit" class="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+    <hr class="sidepanel-divider">
+    <div id="index-sidepanel-archive" class="sidepanel-item-wrapper">
+      <div class="sidepanel-item-header">
+        <h2>Archive</h2>
+      </div>
+      <div id="index-sidepanel-archive-list-wrapper"
+           class="sidepanel-item-content">
+        {% for year, months in archive.items %}
+          <ul>
+            {% for month, posts in months.items %}
+              <li>
+                <a href={% url 'posts' year=year month=month %}>{{ month|month_name }} {{ year }}</a>
+                <ul>
+                  {% for post in posts %}
+                    <li>
+                      <a href={{ post.get_absolute_url }}>{{ post.title }}</a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
+    </div>
+    <hr class="sidepanel-divider">
+    <div id="index-sidepanel-category" class="sidepanel-item-wrapper">
+      <div id="index-sidepanel-category-header-wrapper"
+           class="sidepanel-item-header">
+        <h2>Category</h2>
+      </div>
+      <div class="sidepanel-item-content">
+        <ul>
+          {% for category in categories %}
+            <li>
+              <a href={{ category.get_absolute_url }}>{{ category }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </aside>
 {% endblock sidepanel %}
+{% block breadcrumbs %}
+  {% comment %} {% if request.path != '/blog/' %}
+    <nav id="breadcrumbs">
+      {% for path in breadcrumb_path %}
+        {% if forloop.last %}
+          <span class="breadcrumb-item-active">{{ path.name }}</span>
+        {% else %}
+          <span class="breadcrumb-item"><a href='{{ path.href }}'>{{ path.name }}</a></span>
+          <span>/</span>
+        {% endif %}
+      {% endfor %}
+    </nav>
+  {% endif %} {% endcomment %}
+{% endblock breadcrumbs %}
 {% block main %}
   <div id="index-main-wrapper">
-    <ul class="post-list">
-      {% for post in posts %}
-        <li class="post-item">
-          <h1 class="post-title">
-            <a href='{{ post.get_absolute_url }}'>{{ post.title }}</a>
-          </h1>
-          <p class="post-body">{{ post.body }}</p>
-          {% include "blog/tagListComponent.html" with tags_list_object=post.tags.all %}
-          <p class="post-create-date">created at - {{ post.publish_date }}</p>
-        </li>
-      {% endfor %}
-    </ul>
+    {% if search_query %}
+      <div id="search-query-wrapper">
+        <h2>Search: {{ search_query }}</h2>
+      </div>
+      <hr class="sidepanel-divider">
+    {% endif %}
+    {% if date_parameter %}
+      <div id="date-parameter-wrapper">
+        <h2>
+          {{ date_parameter.year }}年 -
+          {% if date_parameter.month %}
+            {{ date_parameter.month }}月
+          </h2>
+        {% endif %}
+      </div>
+      <hr class="sidepanel-divider">
+    {% endif %}
+    {% if posts %}
+      {% include "blog/postList.html" with posts=posts %}
+    {% else %}
+      <div class="not-found-message">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <span>{{ not_found_message }}</span>
+      </div>
+    {% endif %}
   </div>
+  {% if posts %}
+    {% include "blog/postListPaginator.html" with page_obj=page_obj %}
+  {% endif %}
 {% endblock main %}
 {% block footer %}
-<div id="footer-wrapper">
-  <div id="footer-copyright-wrapper">
-    <p>Copyright © 2023 SHZ LEE. All rights reserved.
+  <div id="footer-wrapper">
+    <div id="footer-copyright-wrapper">
+      <p>Copyright © 2023 SHZ LEE. All rights reserved.</p>
+    </div>
   </div>
-</div>
 {% endblock footer %}

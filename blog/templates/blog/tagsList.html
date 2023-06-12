@@ -1,8 +1,22 @@
 {% extends "blog/index.html" %}
 {% block main %}
-  {% for tag in object_list %}
-    <ul id="tag-list">
-      <li class="tag-list-item"><a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a></li>
-    </ul>
-  {% endfor %}
+  <div id="tag-list-wrapper">
+    <div id="tag-list-header-wrapper">
+      <h2>Tags</h2>
+    </div>
+    {% for tag in object_list %}
+      <ul id="tag-list">
+        <li class="tag-list-item">
+          <div class="tag-list-item-wrapper">
+            <h3>
+              <a href="{% url 'tag_detail' name=tag.name %}">{{ tag.name }}</a>
+            </h3>
+            <p>
+              &nbsp has <span>{{ tag.post_set.count }}</span> posts
+            </p>
+          </div>
+        </li>
+      </ul>
+    {% endfor %}
+  </div>
 {% endblock main %}

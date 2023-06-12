@@ -1,0 +1,22 @@
+{% extends "blog/index.html" %}
+{% load static %}
+{% load martortags %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href={% static "blog/about.css" %}>
+{% endblock css %}
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+{% block sidepanel %}
+{% endblock sidepanel %}
+{% block main %}
+    <div id="about-me-wrapper">
+        <div id="about-me-header">
+            <h1>關於我</h1>
+        </div>
+        <div class="index-item-divider">
+            <hr/>
+        </div>
+        <div id="about-me-content">{{ profile.biography|safe_markdown }}</div>
+    </div>
+{% endblock main %}

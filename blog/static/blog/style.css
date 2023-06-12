@@ -3,115 +3,149 @@ a {
     text-decoration: none;
 }
 
+h1,
+h2,
+h3 {
+    color: var(--color-gray-600);
+}
+
 body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #e8e8e8;
-    color: #6c6c6c;
+    background-color: var(--color-background-secondary);
+    margin: 0;
+
+    font-family: "Arial", "Noto Sans TC";
+    color: var(--color-gray-600);
 }
 
-#header-wrapper {
+footer {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-#nav-wrapper {
+@media screen and (min-device-width: 600px) {
+    #nav {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        background-color: var(--color-gray-700);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+    }
+
+    #appbar-wrapper {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--color-gray-300);
+        max-width: 1081px;
+        margin: 0 auto;
+        padding: 1rem 0 1rem 0;
+    }
+
+    .nav-list {
+        padding: 0;
+    }
+
+    .nav-item {
+        display: inline-block;
+        list-style-type: none;
+        font-weight: bold;
+        font-size: 1.25rem;
+        margin-left: 1rem;
+    }
 }
 
-.nav-list {
-    padding: 0;
+@media screen and (max-width: 900px) {
+    #content-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem 2rem;
+        padding: 0 2rem 0 2rem;
+        margin-top: 2rem;
+        flex-grow: 1;
+        max-width: 1200px;
+    }
 }
 
-.nav-item {
-    display: inline-block;
-    list-style-type: none;
-    font-weight: bold;
+.site-header-text {
+    color: var(--color-gray-300);
+    margin: 0;
 }
 
 #content-wrapper {
     display: flex;
+    gap: 2rem 2rem;
+    margin-top: 2rem;
+    flex-grow: 1;
+    max-width: 1200px;
+    /* padding: 1rem; */
 }
 
-#main-wrapper {
+#date-parameter-wrapper {
+    display: flex;
+    gap: 1rem;
 }
 
-#sidepanel-wrapper {
+.pagination .step-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem 1rem;
 }
 
-
-.post-list {
-    padding: 0;
+#cateogry-detail-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
-.post-item {
-    list-style-type: none;
-    padding: 16px 64px;
-    margin-bottom: 32px;
-    background-color: #f1f1f1;
-    border-radius: 16px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+#category-detail-wrapper h2 {
+    margin: 0 0 2rem 0;
 }
 
-.post-item:last-of-type {
-    margin-bottom: 0;
+#breadcrumbs {
+    display: flex;
+    gap: 0.2rem;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    color: var(--color-gray-500);
 }
 
-.post-body {
-    max-width: 79ch;
-}
-
-.post-comment-list {
-    padding: 0;
-}
-
-.post-comment-item {
-    list-style-type: none;
-    background-color: #f6f6f6;
-    padding: 16px;
-    margin-bottom: 32px;
-    border-radius: 16px;
-    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
-}
-
-.post-comment-item-header-author {
-    margin: 0;
-}
-
-.post-comment-item-header-time {
-    margin: 0;
-}
-
-#post-tag-list {
-    padding: 0;
-}
-
-.post-tag-item {
-    display: inline-block;
-    padding: 4px 8px;
-    background-color: grey;
-    color: white;
-    font-size: 12px;
-    border-radius: 8px;;
-}
-
-#post-detail-wrapper {
-    padding: 16px 64px 32px 64px;
-    background-color: #f1f1f1;
-    border-radius: 16px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-#tag-list {
-    padding: 0;
-}
-
-.tag-list-item {
-    list-style-type: none;
-    display: inline-block;
+.breadcrumb-item-active {
     font-weight: bold;
 }
 
-#tag-detail-wrapper {
+#footer-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#not-found-error-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    & #not-found-error-header {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & h1 {
+            margin: 0;
+            font-size: 6rem;
+        }
+
+        & h2 {
+            margin: 0;
+        }
+    }
+
+    & #not-found-error-content {
+        & p {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+    }
 }

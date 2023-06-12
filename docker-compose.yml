@@ -1,57 +1,69 @@
 version: "3"
 services:
-  application:
-    container_name: "tiri-aqi-django"
-    image: tiri_aqi_django:${IMAGE_VERSION:-latest}
+  app:
+    container_name: "blog-app"
+    image: shzlee_blog_django:${IMAGE_VERSION:-latest}
     build:
       context: .
       dockerfile: docker/Dockerfile
-    expose:
-      - "80"
-    ports:
-      - "80:80"
+      args:
+        GIT_USER:
+        GIT_PASSWD:
+        DJANGO_SUPERUSER_USERNAME:
+        DJANGO_SUPERUSER_PASSWORD:
+        DJANGO_SUPERUSER_EMAIL:
+    command: [ "/bin/bash", "-c", "uwsgi --ini uwsgi.ini" ]
     volumes:
       - .:/workspace
-      - tiri_app_static:${CONTAINER_STORAGE_PATH}
+      - blog_app_data:${CONTAINER_STORAGE_PATH}
     environment:
-      IN_CONTAINER: True
+      IN_CONTAINER:
+      IS_DEBUG:
+      CONTAINER_STORAGE_PATH:
+      LOGGING_FILE_NAME:
       DEPLOY_STAGE:
       DATABASE_URI:
       DATABASE_DB_NAME:
       DATABASE_USER:
       DATABASE_PASSWD:
-      ADMIN_USERNAME:
-      ADMIN_PASSWORD:
+      DJANGO_SUPERUSER_USERNAME:
+      DJANGO_SUPERUSER_PASSWORD:
+      DJANGO_SUPERUSER_EMAIL:
+      DJANGO_ADMIN_URL_PATH:
       AWS_S3_REGION:
       AWS_STORAGE_BUCKET_NAME:
       AWS_S3_CACHE_CONTROL_MAX_AGE:
+      GIT_USER:
+      GIT_PASSWORD:
+    depends_on:
+      - db
   server:
-    container_name: "tiri-aqi-server"
+    container_name: "blog-server"
     build:
       context: .
       dockerfile: docker/nginx/Dockerfile
       args:
-       DEPLOY_STAGE:
+        DEPLOY_STAGE:
     volumes:
-      - tiri_app_static:${CONTAINER_STORAGE_PATH}
+      - ./docker/nginx/sites-available:/etc/nginx/sites-available
+      - blog_app_data:${CONTAINER_STORAGE_PATH}
     ports:
       - "80:80"
+    depends_on:
+      - app
   db:
-    container_name: "tiri-aqi-db"
+    container_name: "blog-db"
     image: postgres:latest
     environment:
-      POSTGRES_DB: "for-development"
-      POSTGRES_USER: "devel"
-      POSTGRES_PASSWORD: "for-development"
+      POSTGRES_DB: "${DATABASE_DB_NAME:-for-development}"
+      POSTGRES_USER: "${DATABASE_USER:-devel}"
+      POSTGRES_PASSWORD: "${DATABASE_PSSWORD:-for-development}"
     ports:
       - "5432:5432"
-  redis:
-    restart: always
-    container_name: "tiri-aqi-cache"
-    image: redis:alpine
-    ports:
-      - "6379:6379"
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
 volumes:
-  tiri_app_static:
+  db_data:
+  blog_app_data:
     external: false

@@ -1,0 +1,22 @@
+{% extends "blog/index.html" %}
+{% block main %}
+  <div id="category-list-wrapper">
+    <div id="category-list-header-wrapper">
+      <h2>Categories</h2>
+    </div>
+    {% for category in object_list %}
+      <ul id="cateogry-list">
+        <li class="category-list-item">
+          <div class="category-list-item-wrapper">
+            <h3>
+              <a href="{% url 'category_detail' name=category.name %}">{{ category.name }}</a>
+            </h3>
+            <p>
+              &nbsp has <span>{{ category.post_set.count }}</span> posts
+            </p>
+          </div>
+        </li>
+      </ul>
+    {% endfor %}
+  </div>
+{% endblock main %}
