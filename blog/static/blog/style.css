@@ -121,3 +121,31 @@ footer {
     display: flex;
     justify-content: center;
 }
+
+#not-found-error-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    & #not-found-error-header {
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        & h1 {
+            margin: 0;
+            font-size: 6rem;
+        }
+
+        & h2 {
+            margin: 0;
+        }
+    }
+
+    & #not-found-error-content {
+        & p {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+    }
+}

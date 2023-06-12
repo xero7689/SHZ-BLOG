@@ -154,3 +154,7 @@ def about_view(request):
         'profile': profile
     }
     return render(request, 'blog/aboutMe.html', context)
+
+
+def response_error_404_handler(request, exception=None):
+    return render(request, 'blog/error404Handler.html', status=404)

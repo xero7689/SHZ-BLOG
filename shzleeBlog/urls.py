@@ -39,3 +39,5 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(
         url=staticfiles_storage.url('images/favicon.ico'))),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'blog.views.response_error_404_handler'
