@@ -45,6 +45,7 @@ services:
       args:
         DEPLOY_STAGE:
     volumes:
+      - ./docker/nginx/sites-available:/etc/nginx/sites-available
       - blog_app_data:${CONTAINER_STORAGE_PATH}
     ports:
       - "80:80"
@@ -54,9 +55,9 @@ services:
     container_name: "blog-db"
     image: postgres:latest
     environment:
-      POSTGRES_DB: "for-development"
-      POSTGRES_USER: "devel"
-      POSTGRES_PASSWORD: "for-development"
+      POSTGRES_DB: "${DATABASE_DB_NAME:-for-development}"
+      POSTGRES_USER: "${DATABASE_USER:-devel}"
+      POSTGRES_PASSWORD: "${DATABASE_PSSWORD:-for-development}"
     ports:
       - "5432:5432"
     volumes:
