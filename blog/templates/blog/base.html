@@ -25,7 +25,7 @@
       {% if post %}
         <meta property="og:url" content="{{ post.get_absolute_url }}" />
         <meta property="og:title" content="{{ post.title }}" />
-        <meta property="og:image" content="{{ request.get_host }}{{ post.cover_image.image.url }}" />
+        <meta property="og:image" content="https://{{ request.get_host }}{{ post.cover_image.image.url }}" />
         <meta property="og:image:alt"
               content="{{ post.cover_image.description }}" />
       {% endif %}
@@ -33,7 +33,7 @@
     {% block twitter-meta %}
       {% if post %}
         <meta name="twitter:image"
-              content="{{ request.get_host }}{{ post.cover_image.image.url }}" />
+              content="https://{{ request.get_host }}{{ post.cover_image.image.url }}" />
         <meta property="twitter:image:alt" content="{{ post.cover_image.name }}"" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content={{ profile.twitter_name }} />
