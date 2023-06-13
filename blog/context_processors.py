@@ -10,7 +10,7 @@ def index(request):
 
     # Aggregate Archieve Data
     aggregated_data = {}
-    grouped_data = Post.objects.filter(published=True)
+    grouped_data = Post.objects.filter(published=True).order_by('-created_date')
     for post in grouped_data:
         year = post.created_date.strftime('%Y')
         month = post.created_date.strftime('%m')
