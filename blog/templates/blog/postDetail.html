@@ -6,6 +6,19 @@
   <div id="post-detail-wrapper">
     {% include "blog/postBody.html" with object=object %}
     {% comment %} {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %} {% endcomment %}
+    <div id="post-detail-body-tags-wrapper">
+      <i class="fa-solid fa-tag"></i>
+      <h3>Tags:</h3>
+      <div id="post-detail-body-tags-list">
+        {% for tag in object.tags.all %}
+          <div class="post-list-item-tag-group">
+            <a href="{% url 'tag_detail' name=tag.name %}">
+              <span class="post-detail-body-tag-item">{{ tag.name }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
     <div class="post-detail-thematic-break">
       <hr class="post-list-item-divider">
     </div>
