@@ -75,7 +75,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     body = MartorField()
     meta_desc = models.CharField(max_length=150, blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField()
     modified_date = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
