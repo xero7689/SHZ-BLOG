@@ -85,7 +85,7 @@ class Post(models.Model):
         Category, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
-    cover_image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True)
+    cover_image = models.ForeignKey(Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={
