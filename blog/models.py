@@ -83,7 +83,7 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, null=True)
 
     cover_image = models.ForeignKey(Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
 
