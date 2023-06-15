@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -74,6 +75,7 @@ class PostModelTest(TestCase):
             category=category,
             cover_image=image,
             published=True,
+            created_date=timezone.now(),
         )
 
     def test_str(self):
@@ -99,6 +101,7 @@ class CommentModelTest(TestCase):
                 )
             ),
             published=True,
+            created_date=timezone.now(),
         )
 
         self.comment = Comment.objects.create(

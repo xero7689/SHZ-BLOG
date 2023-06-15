@@ -30,7 +30,8 @@ class TestIndexView(TestCase):
             author=profile,
             category=category,
             published=True,
-            publish_date=timezone.now()
+            publish_date=timezone.now(),
+            created_date=timezone.now(),
         )
         post1.tags.add(tag1, tag2)
 
@@ -42,7 +43,8 @@ class TestIndexView(TestCase):
             author=profile,
             category=category,
             published=False,
-            publish_date=timezone.now()
+            publish_date=timezone.now(),
+            created_date=timezone.now(),
         )
         post2.tags.add(tag2)
 
