@@ -75,7 +75,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length=255, unique=True)
     body = MartorField()
     meta_desc = models.CharField(max_length=150, blank=True)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField()
     modified_date = models.DateTimeField(auto_now=True)
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
@@ -83,9 +83,9 @@ class Post(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
-    tags = models.ManyToManyField(Tag, blank=True)
+    tags = models.ManyToManyField(Tag, blank=True, null=True)
 
-    cover_image = models.ForeignKey(Image, on_delete=models.PROTECT, null=True)
+    cover_image = models.ForeignKey(Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={

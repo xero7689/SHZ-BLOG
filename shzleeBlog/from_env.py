@@ -5,6 +5,9 @@ APP_NAME = os.environ.get('APP_NAME', 'blog')
 DEPLOY_STAGE = os.environ.get('DEPLOY_STAGE', 'local')
 IS_DEBUG = (os.environ.get('IS_DEBUG', 'True') == 'True')
 
+# SECURITY WARNING: keep the secret key used in production secret!
+DJANGO_SECRET_KEY=os.environ.get('DJANGO_SECRET_KEY', 'you_should_generate_new_key')
+
 # Container Settings
 IN_CONTAINER = os.environ.get('IN_CONTAINER', False)
 if IN_CONTAINER:

@@ -78,8 +78,8 @@ footer {
 
 #content-wrapper {
     display: flex;
-    gap: 2rem 2rem;
-    margin-top: 2rem;
+    gap: 3rem 3rem;
+    margin-top: 3rem;
     flex-grow: 1;
     max-width: 1200px;
     /* padding: 1rem; */
