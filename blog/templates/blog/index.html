@@ -10,10 +10,8 @@
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
-    <a href="{% url 'index' %}">
-      <h1 class="site-header-text">{{ blog.blog_title }}</h1>
-      <h3 class="site-header-text">{{ blog.blog_subtitle }}</h2>
-    </a>
+      <h1 class="site-header-text"><a href="{% url 'index' %}">{{ blog.blog_title }}</a></h1>
+      <h3 class="site-header-text"><a href="{% url 'index' %}">{{ blog.blog_subtitle }}</a></h2>
   </div>
 {% endblock header %}
 {% block nav %}
