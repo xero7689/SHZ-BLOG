@@ -65,9 +65,9 @@ class Image(models.Model):
         return self.name
 
 
-class Post(models.Model):
+class BasePostModel(models.Model):
     class Meta:
-        ordering = ['-publish_date']
+        abstract = True
 
     title = models.CharField(max_length=255, unique=True)
     subtitle = models.CharField(max_length=255, blank=True)
@@ -77,6 +77,21 @@ class Post(models.Model):
     meta_desc = models.CharField(max_length=150, blank=True)
     created_date = models.DateTimeField()
     modified_date = models.DateTimeField(auto_now=True)
+
+    cover_image = models.ForeignKey(
+        Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
+
+    def get_absolute_url(self):
+        raise NotImplementedError("Subclasses must implement get_absolute_url()")
+
+    def __str__(self):
+        return self.title
+
+
+class Post(BasePostModel):
+    class Meta(BasePostModel.Meta):
+        ordering = ['-publish_date']
+
     publish_date = models.DateTimeField(blank=True, null=True)
     published = models.BooleanField(default=False)
 
@@ -84,8 +99,6 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True, null=True)
-
-    cover_image = models.ForeignKey(Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('post_detail', kwargs={
@@ -95,8 +108,13 @@ class Post(models.Model):
             # "day": self.created_date.day
         })
 
-    def __str__(self):
-        return self.title
+
+class SideProject(BasePostModel):
+    class Meta(BasePostModel.Meta):
+        ordering = ['created_date']
+
+    project_owner = models.ForeignKey(Profile, on_delete=models.PROTECT)
+    link = models.URLField()
 
 
 class Comment(models.Model):

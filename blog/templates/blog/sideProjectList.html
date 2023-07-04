@@ -1,0 +1,42 @@
+{% extends "blog/index.html" %}
+{% load static %}
+{% load martortags %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href={% static "blog/about.css" %}>
+{% endblock css %}
+{% block breadcrumbs %}
+{% endblock breadcrumbs %}
+{% block sidepanel %}
+{% endblock sidepanel %}
+{% block main %}
+    <div id="about-me-wrapper">
+        <div id="about-me-header">
+            <h1>個人專案</h1>
+        </div>
+        <div class="index-item-divider">
+            <hr />
+        </div>
+        {% if sideproject_list %}
+            <div id="side-project-list-wrapper">
+                <ul class="post-list">
+                    {% for post in sideproject_list %}
+                        <li class="post-list-item">
+                            <div class="post-list-item-header">
+                                <img src="{{ post.cover_image.image.url }}">
+                                <h1 class="post-list-item-title">
+                                    <a href='{{ post.link }}'>{{ post.title }}</a>
+                                </h1>
+                            </div>
+                            <div class="post-list-item-meta">
+                                <span class="post-list-item-meta-date"><a href="{{ post.link }}">{{ post.link }}</a></span>
+                            </div>
+                            <div class="post-list-item-body post-markdown-style">{{ post.body|safe_markdown }}</div>
+                        </li>
+                        <hr class="post-list-item-divider">
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock main %}
