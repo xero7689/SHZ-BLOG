@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.http import HttpResponseForbidden
 from django.urls import reverse
 
-from .models import Post, Tag, Comment, Category, Profile
+from .models import Post, Tag, Comment, Category, Profile, SideProject
 from .forms import CommentForm
 
 
@@ -133,6 +133,17 @@ def category_detail_view(request, name):
 class TagsListView(ListView):
     model = Tag
     template_name = 'blog/tagsList.html'
+
+
+class SideProjectListView(ListView):
+    model = SideProject
+    template_name = 'blog/sideProjectList.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+
+        return context
 
 
 def tag_detail_view(request, name):

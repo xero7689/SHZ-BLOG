@@ -5,7 +5,7 @@ from PIL import Image as PilImage
 
 from martor.widgets import AdminMartorWidget
 
-from .models import Blog, Profile, Tag, Post, Comment, Category, Image, Visitor
+from .models import Blog, Profile, Tag, Post, SideProject, Comment, Category, Image, Visitor
 
 # Register your models here.
 
@@ -123,4 +123,14 @@ class VisitorAdmin(admin.ModelAdmin):
         'user_agent',
         'remote_addr',
         'http_referer',
+    ]
+
+
+@admin.register(SideProject)
+class SideProjectAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'title',
+        'link',
+        'created_date'
     ]
