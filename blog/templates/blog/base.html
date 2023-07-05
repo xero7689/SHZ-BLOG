@@ -23,7 +23,7 @@
     {% endblock meta %}
     {% block facebook-meta %}
       {% if post %}
-        <meta property="og:url" content="{{ post.get_absolute_url }}" />
+        <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ post.get_absolute_url }}" />
         <meta property="og:title" content="{{ post.title }}" />
         <meta property="og:image"
               content="https://{{ request.get_host }}{{ post.cover_image.image.url }}" />
@@ -73,6 +73,14 @@
     </script>
     <script type="text/javascript" src="{% static 'blog/js/index.js' %}"></script>
   {% endblock js %}
+  {% block fb-ext %}
+    <div id="fb-root"></div>
+    <script async
+            defer
+            crossorigin="anonymous"
+            src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v17.0"
+            nonce="7BFcDc36"></script>
+  {% endblock fb-ext %}
 </head>
 <body id="body">
   <div id="nav">

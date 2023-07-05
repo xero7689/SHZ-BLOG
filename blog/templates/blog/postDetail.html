@@ -6,6 +6,13 @@
   <div id="post-detail-wrapper">
     {% include "blog/postBody.html" with object=object %}
     {% comment %} {% include "blog/tagListComponent.html" with tags_list_object=object.tags.all %} {% endcomment %}
+    <div class="fb-like"
+         data-href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"
+         data-width=""
+         data-layout=""
+         data-action=""
+         data-size="large"
+         data-share="true"></div>
     <div id="post-detail-body-tags-wrapper">
       <i class="fa-solid fa-tag"></i>
       <h3>Tags:</h3>
