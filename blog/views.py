@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
 
-from django.http import HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
 from django.urls import reverse
 
 from .models import Post, Tag, Comment, Category, Profile, SideProject
@@ -169,3 +169,14 @@ def about_view(request):
 
 def response_error_404_handler(request, exception=None):
     return render(request, 'blog/error404Handler.html', status=404)
+
+
+def robots_txt(request):
+    if request.method == "GET":
+        lines = [
+            "User-Agent: *",
+            "Allow: /",
+        ]
+        return HttpResponse("\n".join(lines), content_type='text/plain')
+    else:
+        return HttpResponseNotAllowed(["POST"])

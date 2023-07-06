@@ -24,6 +24,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from blog.views import robots_txt
 from blog.sitemaps import PostSitemap
 
 sitemaps = {
@@ -34,6 +35,7 @@ urlpatterns = [
     path('', include('blog.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
+    path('robots.txt', robots_txt),
     path(settings.DJANGO_ADMIN_URL_PATH, admin.site.urls),
     path('martor/', include('martor.urls')),
     path('favicon.ico', RedirectView.as_view(
