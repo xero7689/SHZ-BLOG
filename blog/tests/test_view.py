@@ -175,6 +175,11 @@ class CategoryDetailView(TestCase):
         self.assertNotIn(category_with_unpub_posts,
                          response.context['categories'])
 
+    def test_invalid_category_name_query_string(self):
+        url = reverse('category_detail', args=["Invalid Category Name"])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
 
 class TagDetailViewTests(TestCase):
     @classmethod

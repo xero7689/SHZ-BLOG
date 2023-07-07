@@ -132,7 +132,11 @@ class CategoryListView(ListView):
 
 
 def category_detail_view(request, name):
-    category = Category.objects.get(name=name)
+    try:
+        category = Category.objects.get(name=name)
+    except ObjectDoesNotExist:
+        raise Http404
+
     posts = category.post_set.filter(published=True)
 
     context = {
