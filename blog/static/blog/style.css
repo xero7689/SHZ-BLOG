@@ -1,3 +1,8 @@
+:root {
+    --max-app-width: 1200px;
+    --system-ui: system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Sans TC";
+}
+
 a {
     color: inherit;
     text-decoration: none;
@@ -15,9 +20,9 @@ body {
     align-items: center;
     background-color: var(--color-background-secondary);
     margin: 0;
-
-    font-family: "Arial", "Noto Sans TC";
+    font-family: var(--system-ui);
     color: var(--color-gray-600);
+    text-align: justify;
 }
 
 footer {
@@ -25,55 +30,28 @@ footer {
     margin-bottom: 1rem;
 }
 
-@media screen and (min-device-width: 600px) {
-    #nav {
-        width: 100%;
-        position: sticky;
-        top: 0;
-        background-color: var(--color-gray-700);
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-    }
-
-    #appbar-wrapper {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        color: var(--color-gray-300);
-        max-width: 1081px;
-        margin: 0 auto;
-        padding: 1rem 0 1rem 0;
-    }
-
-    .nav-list {
-        padding: 0;
-    }
-
-    .nav-item {
-        display: inline-block;
-        list-style-type: none;
-        font-weight: bold;
-        font-size: 1.25rem;
-        margin-left: 1rem;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    #content-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 2rem 2rem;
-        padding: 0 2rem 0 2rem;
-        margin-top: 2rem;
-        flex-grow: 1;
-        max-width: 1200px;
-    }
-}
-
 .site-header-text {
     color: var(--color-gray-300);
     margin: 0;
+}
+
+#nav {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-gray-700);
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+#appbar-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--color-gray-300);
+    max-width: var(--max-app-width);
+    margin: 0 auto;
+    padding: 1rem 2rem 1rem 2rem;
 }
 
 #content-wrapper {
@@ -81,8 +59,8 @@ footer {
     gap: 3rem 3rem;
     margin-top: 3rem;
     flex-grow: 1;
-    max-width: 1200px;
-    /* padding: 1rem; */
+    max-width: var(--max-app-width);
+    padding: 0 2rem 0 2rem;
 }
 
 #date-parameter-wrapper {
@@ -147,5 +125,31 @@ footer {
             margin: 0;
             font-size: 1.5rem;
         }
+    }
+}
+
+@media screen and (min-device-width: 601px) {
+    .nav-list {
+        padding: 0;
+    }
+
+    .nav-item {
+        display: inline-block;
+        list-style-type: none;
+        font-weight: bold;
+        font-size: 1.25rem;
+        margin-left: 1rem;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    #content-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem 2rem;
+        padding: 0 2rem 0 2rem;
+        margin-top: 2rem;
+        flex-grow: 1;
     }
 }
