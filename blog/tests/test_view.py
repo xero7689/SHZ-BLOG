@@ -92,6 +92,84 @@ class TestIndexView(TestCase):
         self.assertEqual(response.context['not_found_message'], "")
 
 
+class CategoryDetailView(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        user = get_user_model().objects.create_user(
+            username="testuser", email="testuser@example.com", password="testpass"
+        )
+        Blog.objects.create(user=user, blog_title="Test Blog")
+
+        category = Category.objects.create(name="Test Category")
+        category_with_unpub_posts = Category.objects.create(name="Category for Unpublished")
+
+        profile=Profile.objects.create(user=user)
+
+        tag1 = Tag.objects.create(name="Test Tag 1")
+        tag2 = Tag.objects.create(name="Test Tag 2")
+
+        post1 = Post.objects.create(
+            title="Test Post 1",
+            abstract="Test Abstract 1",
+            slug="test-post-1",
+            body="Test Body 1",
+            author=profile,
+            category=category,
+            published=True,
+            publish_date=timezone.now(),
+            created_date=timezone.now(),
+        )
+        post1.tags.add(tag1, tag2)
+
+        unpublished_post = Post.objects.create(
+            title="Unpublished Post",
+            abstract="Unpublished Post Abstract",
+            slug="unpublished-post",
+            body="Unpublished Post Body",
+            author=profile,
+            category=category_with_unpub_posts,
+            published=False,
+            created_date=timezone.now()
+        )
+
+    def test_published_articale_int_category_detail(self):
+        post1 = Post.objects.get(title="Test Post 1")
+        category = Category.objects.get(name="Test Category")
+
+        url = reverse('category_detail', args=[category.name])
+
+        response = self.client.get(url)
+
+        self.assertIn(post1, response.context['posts'])
+
+    def test_unpublished_article_not_in_category_detail(self):
+        post = Post.objects.get(title="Unpublished Post")
+        category_with_unpub_posts = Category.objects.get(name="Category for Unpublished")
+
+        url = reverse('category_detail', args=[category_with_unpub_posts.name])
+        response = self.client.get(url)
+
+        self.assertNotIn(post, response.context['posts'])
+
+    def test_empty_posts_categoriy_not_in_index_context(self):
+        test_category = Category.objects.get(name="Test Category")
+        empty_category = Category.objects.create(name="Empty Post Category")
+
+        url = reverse('index')
+        response = self.client.get(url)
+
+        self.assertIn(test_category, response.context['categories'])
+        self.assertNotIn(empty_category, response.context['categories'])
+
+    def test_unpublished_posts_categoriy_not_in_index_context(self):
+        category_with_unpub_posts = Category.objects.get(name="Category for Unpublished")
+
+        url = reverse('index')
+        response = self.client.get(url)
+
+        self.assertNotIn(category_with_unpub_posts, response.context['categories'])
+
+
 class RobotsTxtTests(TestCase):
     def test_get(self):
         response = self.client.get("/robots.txt")

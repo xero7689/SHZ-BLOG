@@ -1,3 +1,6 @@
+from typing import Any
+from django.db.models import Count, Q
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView, ListView, FormView
@@ -117,10 +120,18 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'blog/categoryList.html'
 
+    def get_queryset(self) -> QuerySet[Any]:
+        query_set = super().get_queryset()
+        query_set = query_set.annotate(num_posts=Count('post')).filter(
+            Q(num_posts__gt=0) & Q(post__published=True) & ~Q(
+                post__publish_date__isnull=True))
+
+        return query_set
+
 
 def category_detail_view(request, name):
     category = Category.objects.get(name=name)
-    posts = category.post_set.all()
+    posts = category.post_set.filter(published=True)
 
     context = {
         'category': category,
@@ -148,7 +159,7 @@ class SideProjectListView(ListView):
 
 def tag_detail_view(request, name):
     tag = Tag.objects.get(name=name)
-    posts = tag.post_set.all()
+    posts = tag.post_set.filter(published=True)
 
     context = {
         'tag': tag,
