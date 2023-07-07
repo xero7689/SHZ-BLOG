@@ -6,7 +6,9 @@ from django.views import View
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
 
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed
+from django.core.exceptions import ObjectDoesNotExist
+
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseNotAllowed, Http404
 from django.urls import reverse
 
 from .models import Post, Tag, Comment, Category, Profile, SideProject
@@ -146,6 +148,22 @@ class TagsListView(ListView):
     template_name = 'blog/tagsList.html'
 
 
+def tag_detail_view(request, name):
+    try:
+        tag = Tag.objects.get(name=name)
+    except ObjectDoesNotExist:
+        raise Http404
+
+    posts = tag.post_set.filter(published=True)
+
+    context = {
+        'tag': tag,
+        'posts': posts
+    }
+
+    return render(request, 'blog/tagDetail.html', context)
+
+
 class SideProjectListView(ListView):
     model = SideProject
     template_name = 'blog/sideProjectList.html'
@@ -155,18 +173,6 @@ class SideProjectListView(ListView):
         print(context)
 
         return context
-
-
-def tag_detail_view(request, name):
-    tag = Tag.objects.get(name=name)
-    posts = tag.post_set.filter(published=True)
-
-    context = {
-        'tag': tag,
-        'posts': posts
-    }
-
-    return render(request, 'blog/tagDetail.html', context)
 
 
 def about_view(request):
