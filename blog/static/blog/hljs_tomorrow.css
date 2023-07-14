@@ -3,21 +3,25 @@
     background: linear-gradient(to top, rgba(220, 220, 220, 1), rgb(238, 238, 238));
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
+}
+
+.hljs-collapse-btn.active {
+    background: rgb(238, 238, 238);
 }
 
 pre {
     display: block;
     position: relative;
     height: auto;
-    overflow: auto;
+    overflow: hidden;
     transition: max-height .25s ease-out;
-    max-height: 256px;
+    max-height: 512px;
 
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
 
-    margin: 0;
+    margin: 1em 0 0 0;
     padding: 0.8em;
     background-color: rgb(238, 238, 238);
     color: #4d4d4c;
@@ -28,12 +32,15 @@ pre {
 }
 
 .pre-not-overflow {
+    margin-bottom: 1em;
+    overflow-x: auto;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
 
 pre.active {
-    max-height: 1024px;
+    overflow: auto;
+    max-height: 768px;
 }
 
 /* Tomorrow Comment */

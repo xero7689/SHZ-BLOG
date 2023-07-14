@@ -44,6 +44,7 @@ $(document).ready(function () {
 
     button.onclick = () => {
       preBlock.classList.toggle("active");
+      button.classList.toggle("active");
       icon.classList.toggle("fa-chevron-down");
       icon.classList.toggle("fa-chevron-up");
     };
@@ -57,7 +58,7 @@ $(document).ready(function () {
 
     if (preBlock.querySelectorAll(".hljs")) {
       let preRect = preBlock.getBoundingClientRect();
-      if (preRect.height < 256) {
+      if (preRect.height < 512) {
         preBlock.classList.toggle("active");
         preBlock.classList.add("pre-not-overflow");
       } else {
