@@ -45,7 +45,7 @@ class index(ListView):
             if month:
                 query_set = query_set.filter(created_date__month=month)
 
-        return query_set.filter(published=True).order_by("-created_date")
+        return query_set.filter(published=True).order_by("-created_date").select_related('category', 'cover_image')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
