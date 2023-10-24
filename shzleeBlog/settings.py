@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'martor',
     'blog',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'blog.middleware.VisitorTrackingMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'shzleeBlog.urls'
@@ -359,4 +361,10 @@ ALLOWED_HTML_ATTRIBUTES = [
     "alt", "class", "color", "colspan", "datetime",  # "data",
     "height", "href", "id", "name", "reversed", "rowspan",
     "scope", "src", "style", "title", "type", "width"
+]
+
+# Debug Toolbar Settings
+INTERNAL_IPS = [
+    '0.0.0.0',
+    '127.0.0.1'
 ]
