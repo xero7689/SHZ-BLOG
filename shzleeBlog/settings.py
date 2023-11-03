@@ -176,51 +176,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logging
 if IN_CONTAINER:
-    logging_file_path = CONTAINER_STORAGE_PATH
-else:
-    logging_file_path = os.path.join(os.path.join(BASE_DIR, 'logging'), 'blog.log')
-    print(logging_file_path)
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'generic': {
-            'format': '[{asctime}][{levelname}] - {message}',
-            'style': '{',
-        }
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'generic',
-        },
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': logging_file_path,
-        }
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING'
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
-            "propagate": False,
-        },
-        "blog.middleware": {  # Control the behavior of logger in module
-            "handlers": ['console', 'file'],
-            "level": "INFO",
-        },
-    }
-}
-
-
-# Logging
-if IN_CONTAINER:
     logging_file_path = os.path.join(CONTAINER_STORAGE_PATH, LOGGING_FILE_NAME)
 else:
     logging_file_path = os.path.join(
@@ -257,9 +212,10 @@ LOGGING = {
             "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
             "propagate": False,
         },
-        "blog.middleware": {  # Control the behavior of logger in module
-            "handlers": ['console', 'file'],
+        "blog.middleware.visitor_tracking": {  # Control the behavior of logger in module
+            "handlers": ['console'],
             "level": "INFO",
+            "propagate": False,
         },
     }
 }

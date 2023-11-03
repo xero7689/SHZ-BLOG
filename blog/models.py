@@ -129,10 +129,11 @@ class Comment(models.Model):
 
 
 class Visitor(models.Model):
-    remote_addr = models.CharField(max_length=64)
-    user_agent = models.CharField(max_length=512, blank=True)
-    http_referer = models.CharField(max_length=512, blank=True)
-    timestamp = models.DateTimeField()
+    remote_addr = models.CharField(max_length=64, default="", blank=True, null=True)
+    user_agent = models.CharField(max_length=512, default="", blank=True, null=True)
+    http_referer = models.CharField(max_length=512, default="", blank=True, null=True)
+    path_info = models.CharField(max_length=128, default="", blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.remote_addr}'
