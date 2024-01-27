@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('blog', '0015_image_description_profile_facebook_name_and_more'),
     ]
@@ -13,7 +12,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Visitor',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('remote_addr', models.CharField(max_length=64)),
                 ('user_agent', models.CharField(blank=True, max_length=512)),
                 ('http_referer', models.CharField(blank=True, max_length=512)),

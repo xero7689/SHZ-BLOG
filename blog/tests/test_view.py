@@ -77,7 +77,8 @@ class TestIndexView(TestCase):
         self.assertEqual(list(response1.context['posts']), [post1])
 
         response2 = self.client.get(
-            reverse('posts', kwargs={"year": "2000", "month": "1"}))
+            reverse('posts', kwargs={"year": "2000", "month": "1"})
+        )
         self.assertEqual(list(response2.context['posts']), [post1])
 
     def test_search_query_filters_queryset_by_title(self):
@@ -87,7 +88,9 @@ class TestIndexView(TestCase):
     def test_search_query_returns_not_found_message_when_no_results(self):
         response = self.client.get(reverse('posts') + "?q=fail")
         self.assertEqual(
-            response.context['not_found_message'], "No results found for your search query fail")
+            response.context['not_found_message'],
+            "No results found for your search query fail",
+        )
 
     def test_search_query_returns_empty_not_found_message_when_results_found(self):
         response = self.client.get(reverse('posts') + "?q=Test")
@@ -104,7 +107,8 @@ class CategoryDetailView(TestCase):
 
         category = Category.objects.create(name="Test Category")
         category_with_unpub_posts = Category.objects.create(
-            name="Category for Unpublished")
+            name="Category for Unpublished"
+        )
 
         profile = Profile.objects.create(user=user)
 
@@ -132,7 +136,7 @@ class CategoryDetailView(TestCase):
             author=profile,
             category=category_with_unpub_posts,
             published=False,
-            created_date=timezone.now()
+            created_date=timezone.now(),
         )
 
     def test_published_articale_int_category_detail(self):
@@ -148,7 +152,8 @@ class CategoryDetailView(TestCase):
     def test_unpublished_article_not_in_category_detail(self):
         post = Post.objects.get(title="Unpublished Post")
         category_with_unpub_posts = Category.objects.get(
-            name="Category for Unpublished")
+            name="Category for Unpublished"
+        )
 
         url = reverse('category_detail', args=[category_with_unpub_posts.name])
         response = self.client.get(url)
@@ -167,13 +172,13 @@ class CategoryDetailView(TestCase):
 
     def test_unpublished_posts_categoriy_not_in_index_context(self):
         category_with_unpub_posts = Category.objects.get(
-            name="Category for Unpublished")
+            name="Category for Unpublished"
+        )
 
         url = reverse('index')
         response = self.client.get(url)
 
-        self.assertNotIn(category_with_unpub_posts,
-                         response.context['categories'])
+        self.assertNotIn(category_with_unpub_posts, response.context['categories'])
 
     def test_invalid_category_name_query_string(self):
         url = reverse('category_detail', args=["Invalid Category Name"])
@@ -191,7 +196,8 @@ class TagDetailViewTests(TestCase):
 
         category = Category.objects.create(name="Test Category")
         category_with_unpub_posts = Category.objects.create(
-            name="Category for Unpublished")
+            name="Category for Unpublished"
+        )
 
         profile = Profile.objects.create(user=user)
 
@@ -219,7 +225,7 @@ class TagDetailViewTests(TestCase):
             author=profile,
             category=category_with_unpub_posts,
             published=False,
-            created_date=timezone.now()
+            created_date=timezone.now(),
         )
 
     def test_invalid_tag_name_query_string(self):

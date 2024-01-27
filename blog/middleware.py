@@ -21,8 +21,12 @@ class VisitorTrackingMiddleware:
         response = self.get_response(request)
         if response.status_code == 200:
             try:
-                Visitor.objects.create(remote_addr=remote_addr, user_agent=user_agent,
-                                       http_referer=parsed_referer, path_info=path_info)
+                Visitor.objects.create(
+                    remote_addr=remote_addr,
+                    user_agent=user_agent,
+                    http_referer=parsed_referer,
+                    path_info=path_info,
+                )
             except Exception as e:
                 self.logger.error(str(e))
 

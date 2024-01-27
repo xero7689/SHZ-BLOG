@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('blog', '0016_visitor'),
     ]
@@ -14,7 +13,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='post',
             name='cover_image',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to='blog.image'),
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_DEFAULT,
+                to='blog.image',
+            ),
         ),
         migrations.AlterField(
             model_name='post',

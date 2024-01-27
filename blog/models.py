@@ -6,16 +6,13 @@ from martor.models import MartorField
 
 
 class Blog(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT
-    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
-    blog_title = models.CharField(
-        max_length=32, default="Blog Title", unique=True)
+    blog_title = models.CharField(max_length=32, default="Blog Title", unique=True)
     blog_subtitle = models.CharField(max_length=64, default="Blog Subtitle")
     blog_meta_description = models.CharField(
-        max_length=128, default="Blog <meta> description")
+        max_length=128, default="Blog <meta> description"
+    )
     blog_meta_keywords = models.CharField(max_length=128, default="blog")
 
     def __str__(self):
@@ -23,10 +20,7 @@ class Blog(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.PROTECT
-    )
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     nickname = models.CharField(max_length=16, default="Author Nick Name")
     website = models.URLField(blank=True)
     biography = models.TextField()
@@ -79,7 +73,8 @@ class BasePostModel(models.Model):
     modified_date = models.DateTimeField(auto_now=True)
 
     cover_image = models.ForeignKey(
-        Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True)
+        Image, on_delete=models.SET_DEFAULT, default=None, null=True, blank=True
+    )
 
     def get_absolute_url(self):
         raise NotImplementedError("Subclasses must implement get_absolute_url()")
@@ -97,16 +92,20 @@ class Post(BasePostModel):
 
     author = models.ForeignKey(Profile, on_delete=models.PROTECT)
     category = models.ForeignKey(
-        Category, on_delete=models.PROTECT, blank=True, null=True)
+        Category, on_delete=models.PROTECT, blank=True, null=True
+    )
     tags = models.ManyToManyField(Tag, blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={
-            "slug": self.slug,
-            "year": self.created_date.year,
-            "month": self.created_date.month,
-            # "day": self.created_date.day
-        })
+        return reverse(
+            'post_detail',
+            kwargs={
+                "slug": self.slug,
+                "year": self.created_date.year,
+                "month": self.created_date.month,
+                # "day": self.created_date.day
+            },
+        )
 
 
 class SideProject(BasePostModel):

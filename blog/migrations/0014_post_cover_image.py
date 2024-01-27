@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('blog', '0013_profile_nickname'),
     ]
@@ -14,6 +13,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='cover_image',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='blog.image'),
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.PROTECT, to='blog.image'
+            ),
         ),
     ]

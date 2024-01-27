@@ -3,7 +3,17 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from blog.models import Blog, Profile, Tag, Category, Image, Post, Comment, Visitor, SideProject
+from blog.models import (
+    Blog,
+    Profile,
+    Tag,
+    Category,
+    Image,
+    Post,
+    Comment,
+    Visitor,
+    SideProject,
+)
 
 
 class BlogModelTest(TestCase):
@@ -83,7 +93,12 @@ class PostModelTest(TestCase):
 
     def test_get_absolute_url(self):
         url = reverse(
-            "post_detail", kwargs={"slug": self.post.slug, "year": self.post.created_date.year, "month": self.post.created_date.month}
+            "post_detail",
+            kwargs={
+                "slug": self.post.slug,
+                "year": self.post.created_date.year,
+                "month": self.post.created_date.month,
+            },
         )
         self.assertEqual(self.post.get_absolute_url(), url)
 
@@ -97,7 +112,9 @@ class CommentModelTest(TestCase):
             body="Test Body",
             author=Profile.objects.create(
                 user=get_user_model().objects.create_user(
-                    username="testuser", email="testuser@example.com", password="testpass"
+                    username="testuser",
+                    email="testuser@example.com",
+                    password="testpass",
                 )
             ),
             published=True,
@@ -144,7 +161,7 @@ class SideProjectModelTest(TestCase):
             created_date=timezone.now(),
             modified_date=timezone.now(),
             project_owner=owner,
-            link="https://www.example.com"
+            link="https://www.example.com",
         )
 
     def test_string_representation(self):

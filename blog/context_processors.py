@@ -11,8 +11,7 @@ def index(request):
 
     # Aggregate Archieve Data
     aggregated_data = {}
-    grouped_data = Post.objects.filter(
-        published=True).order_by('-created_date')
+    grouped_data = Post.objects.filter(published=True).order_by('-created_date')
     for post in grouped_data:
         year = post.created_date.strftime('%Y')
         month = post.created_date.strftime('%m')
@@ -23,24 +22,28 @@ def index(request):
         aggregated_data[year][month].append(post)
 
     # Categories
-    categories = Category.objects.annotate(num_posts=Count('post')).filter(
-        Q(num_posts__gt=0) & Q(post__published=True) & ~Q(
-            post__publish_date__isnull=True)
-    ).distinct()
+    categories = (
+        Category.objects.annotate(num_posts=Count('post'))
+        .filter(
+            Q(num_posts__gt=0)
+            & Q(post__published=True)
+            & ~Q(post__publish_date__isnull=True)
+        )
+        .distinct()
+    )
 
     # Breadcrumb
     paths = list(filter(None, request.path.split('/')))
     breadcrumb_path = []
     for index, path in enumerate(paths):
-        breadcrumb_path.append({
-            "name": path,
-            "href": "/" + "/".join([p for p in paths[:index + 1]])
-        })
+        breadcrumb_path.append(
+            {"name": path, "href": "/" + "/".join([p for p in paths[: index + 1]])}
+        )
 
     return {
         'blog': blog,
         'profile': profile,
         'archive': aggregated_data,
         'categories': categories,
-        'breadcrumb_path': breadcrumb_path
+        'breadcrumb_path': breadcrumb_path,
     }
