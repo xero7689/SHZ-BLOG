@@ -13,9 +13,11 @@ services:
         DJANGO_SUPERUSER_PASSWORD:
         DJANGO_SUPERUSER_EMAIL:
     command: [ "/bin/bash", "-c", "uwsgi --ini uwsgi.ini" ]
+    ports:
+      - ${HOST_MAPPING_PORT}:8000
     volumes:
       - .:/workspace
-      - blog_app_data:${CONTAINER_STORAGE_PATH}
+      - ${HOST_STORAGE_PATH}:${CONTAINER_STORAGE_PATH}
     environment:
       IN_CONTAINER:
       IS_DEBUG:
@@ -47,7 +49,7 @@ services:
         DEPLOY_STAGE:
     volumes:
       - ./docker/nginx/sites-available:/etc/nginx/sites-available
-      - blog_app_data:${CONTAINER_STORAGE_PATH}
+      - ${HOST_STORAGE_PATH}:${CONTAINER_STORAGE_PATH}
     ports:
       - "80:80"
     depends_on:
