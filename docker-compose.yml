@@ -40,27 +40,13 @@ services:
       GIT_PASSWORD:
     depends_on:
       - db
-  server:
-    container_name: "blog-server"
-    build:
-      context: .
-      dockerfile: docker/nginx/Dockerfile
-      args:
-        DEPLOY_STAGE:
-    volumes:
-      - ./docker/nginx/sites-available:/etc/nginx/sites-available
-      - ${HOST_STORAGE_PATH}:${CONTAINER_STORAGE_PATH}
-    ports:
-      - "80:80"
-    depends_on:
-      - app
   db:
     container_name: "blog-db"
-    image: postgres:latest
+    image: postgres:15.3
     environment:
       POSTGRES_DB: "${DATABASE_DB_NAME:-for-development}"
       POSTGRES_USER: "${DATABASE_USER:-devel}"
-      POSTGRES_PASSWORD: "${DATABASE_PSSWORD:-for-development}"
+      POSTGRES_PASSWORD: "${DATABASE_PASSWD:-for-development}"
     ports:
       - "5432:5432"
     volumes:
@@ -68,5 +54,3 @@ services:
 
 volumes:
   db_data:
-  blog_app_data:
-    external: false
