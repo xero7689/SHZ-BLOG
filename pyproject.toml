@@ -1,0 +1,12 @@
+[project]
+name = "shzleeBlog"
+version = "0.1.0"
+description = "A simple blog application"
+requires-python = ">=3.9"
+dependencies = [
+    "django==4.2",
+    "martor>=1.6.44",
+    "pillow>=11.0.0",
+    "psycopg2>=2.9.10",
+    "uwsgi>=2.0.28",
+]
