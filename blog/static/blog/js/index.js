@@ -30,6 +30,8 @@ $(document).ready(function () {
    * Code Snippets Collapse Button
    */
   // Collapse Button Factory
+
+  /*
   function createCollapseButton(preBlock) {
     let button = document.createElement("div");
     let icon = document.createElement("i");
@@ -51,7 +53,9 @@ $(document).ready(function () {
 
     return button;
   }
+  */
 
+  /*
   const preBlocks = document.getElementsByTagName("pre");
   for (let i = 0; i < preBlocks.length; i++) {
     let preBlock = preBlocks[i];
@@ -67,4 +71,5 @@ $(document).ready(function () {
       }
     }
   }
+  */
 });

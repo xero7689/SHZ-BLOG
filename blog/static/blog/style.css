@@ -4,7 +4,7 @@
 }
 
 a {
-    color: inherit;
+    color: var(--color-text-primary);
     text-decoration: none;
 }
 
@@ -18,10 +18,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--color-background-secondary);
+    background-color: var(--color-background-primary);
     margin: 0;
     font-family: var(--system-ui);
-    color: var(--color-gray-600);
+    color: var(--color-text-secondary);
     text-align: justify;
 }
 
@@ -39,7 +39,7 @@ footer {
     width: 100%;
     position: sticky;
     top: 0;
-    background-color: var(--color-gray-700);
+    background-color: var(--color-background-secondary);
     box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     z-index: 9999;
 }

@@ -18,8 +18,16 @@
         margin: 1rem 0 0.5rem 0;
     }
 
+    & h1 {
+        color: #b7d4c0;
+    }
+
+    & h2 {
+        color: #a9bce2;
+    }
+
     & h3 {
-        color: #718c00;
+        color: #b8d3ce;
     }
 
     & blockquote {
