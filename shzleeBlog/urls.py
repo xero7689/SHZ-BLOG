@@ -24,20 +24,30 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from blog.views import robots_txt
 from blog.sitemaps import PostSitemap
 
-sitemaps = {
-    "posts": PostSitemap
-}
+sitemaps = {"posts": PostSitemap}
 
-urlpatterns = [
-    path('', include('blog.urls')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
-         name='django.contrib.sitemaps.views.sitemap'),
-    path(settings.DJANGO_ADMIN_URL_PATH, admin.site.urls),
-    path('martor/', include('martor.urls')),
-    path('favicon.ico', RedirectView.as_view(
-        url=staticfiles_storage.url('images/favicon.ico'))),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = (
+    [
+        path('', include('blog.urls')),
+        path(
+            'sitemap.xml',
+            sitemap,
+            {'sitemaps': sitemaps},
+            name='django.contrib.sitemaps.views.sitemap',
+        ),
+        path('robots.txt', robots_txt),
+        path(settings.DJANGO_ADMIN_URL_PATH, admin.site.urls),
+        path('martor/', include('martor.urls')),
+        path(
+            'favicon.ico',
+            RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico')),
+        ),
+    ]
+    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+)
 
 handler404 = 'blog.views.response_error_404_handler'

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('blog', '0011_blog_blog_meta_keyword_and_more'),
     ]

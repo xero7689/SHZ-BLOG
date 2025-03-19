@@ -1,12 +1,22 @@
+from typing import Any
+from django.db.models import Count, Q
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import DetailView, ListView, FormView
 from django.views.generic.detail import SingleObjectMixin
 
-from django.http import HttpResponseForbidden
+from django.core.exceptions import ObjectDoesNotExist
+
+from django.http import (
+    HttpResponse,
+    HttpResponseForbidden,
+    HttpResponseNotAllowed,
+    Http404,
+)
 from django.urls import reverse
 
-from .models import Post, Tag, Comment, Category, Profile
+from .models import Post, Tag, Comment, Category, Profile, SideProject
 from .forms import CommentForm
 
 
@@ -21,10 +31,16 @@ class index(ListView):
         if search_query:
             self.object_list = self.get_queryset().filter(title__icontains=search_query)
             if not self.object_list:
-                not_found_message = f'No results found for your search query {search_query}'
+                not_found_message = (
+                    f'No results found for your search query {search_query}'
+                )
             else:
                 not_found_message = ''
-            return self.render_to_response(self.get_context_data(search_query=search_query, not_found_message=not_found_message))
+            return self.render_to_response(
+                self.get_context_data(
+                    search_query=search_query, not_found_message=not_found_message
+                )
+            )
         else:
             self.object_list = self.get_queryset()
             return self.render_to_response(self.get_context_data())
@@ -40,7 +56,11 @@ class index(ListView):
             if month:
                 query_set = query_set.filter(created_date__month=month)
 
-        return query_set.filter(published=True).order_by("-created_date")
+        return (
+            query_set.filter(published=True)
+            .order_by("-created_date")
+            .select_related('category', 'cover_image')
+        )
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,10 +89,20 @@ class postDetailView(DetailView):
         comments = Comment.objects.filter(post=self.get_object())
 
         current_post = self.object
-        previous_post = Post.objects.filter(
-            created_date__lt=current_post.created_date, published=True).order_by('created_date').last()
-        next_post = Post.objects.filter(
-            created_date__gt=current_post.created_date, published=True).order_by('created_date').first()
+        previous_post = (
+            Post.objects.filter(
+                created_date__lt=current_post.created_date, published=True
+            )
+            .order_by('created_date')
+            .last()
+        )
+        next_post = (
+            Post.objects.filter(
+                created_date__gt=current_post.created_date, published=True
+            )
+            .order_by('created_date')
+            .first()
+        )
 
         context['form'] = CommentForm()
         context['comments'] = comments
@@ -117,15 +147,26 @@ class CategoryListView(ListView):
     model = Category
     template_name = 'blog/categoryList.html'
 
+    def get_queryset(self) -> QuerySet[Any]:
+        query_set = super().get_queryset()
+        query_set = query_set.annotate(num_posts=Count('post')).filter(
+            Q(num_posts__gt=0)
+            & Q(post__published=True)
+            & ~Q(post__publish_date__isnull=True)
+        )
+
+        return query_set
+
 
 def category_detail_view(request, name):
-    category = Category.objects.get(name=name)
-    posts = category.post_set.all()
+    try:
+        category = Category.objects.get(name=name)
+    except ObjectDoesNotExist:
+        raise Http404
 
-    context = {
-        'category': category,
-        'posts': posts
-    }
+    posts = category.post_set.filter(published=True)
+
+    context = {'category': category, 'posts': posts}
 
     return render(request, 'blog/categoryDetail.html', context)
 
@@ -136,25 +177,46 @@ class TagsListView(ListView):
 
 
 def tag_detail_view(request, name):
-    tag = Tag.objects.get(name=name)
-    posts = tag.post_set.all()
+    try:
+        tag = Tag.objects.get(name=name)
+    except ObjectDoesNotExist:
+        raise Http404
 
-    context = {
-        'tag': tag,
-        'posts': posts
-    }
+    posts = tag.post_set.filter(published=True)
+
+    context = {'tag': tag, 'posts': posts}
 
     return render(request, 'blog/tagDetail.html', context)
+
+
+class SideProjectListView(ListView):
+    model = SideProject
+    template_name = 'blog/sideProjectList.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(**kwargs)
+        print(context)
+
+        return context
 
 
 def about_view(request):
     profile = Profile.objects.first()
 
-    context = {
-        'profile': profile
-    }
+    context = {'profile': profile}
     return render(request, 'blog/aboutMe.html', context)
 
 
 def response_error_404_handler(request, exception=None):
     return render(request, 'blog/error404Handler.html', status=404)
+
+
+def robots_txt(request):
+    if request.method == "GET":
+        lines = [
+            "User-Agent: *",
+            "Allow: /",
+        ]
+        return HttpResponse("\n".join(lines), content_type='text/plain')
+    else:
+        return HttpResponseNotAllowed(["POST"])

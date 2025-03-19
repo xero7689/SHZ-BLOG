@@ -4,6 +4,7 @@
         <div class="post-list-item-header">
             <img src="{{ post.cover_image.image.url }}">
             <h1 class="post-list-item-title">{{ object.title }}</h1>
+            {% if object.subtitle %}<h2 class="post-list-item-subtitle">{{ object.subtitle }}</h2>{% endif %}
         </div>
         <div class="post-list-item-meta">
             <span class="post-list-item-meta-date">{{ object.created_date }}</span>
@@ -16,7 +17,6 @@
                 </div>
             {% endif %}
         </div>
-        {% if object.subtitle %}<h2>{{ object.subtitle }}</h2>{% endif %}
     </div>
     <div id="post-detail-body-wrapper" class="post-markdown-style">{{ object.body|safe_markdown }}</div>
 

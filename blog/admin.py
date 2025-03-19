@@ -5,19 +5,24 @@ from PIL import Image as PilImage
 
 from martor.widgets import AdminMartorWidget
 
-from .models import Blog, Profile, Tag, Post, Comment, Category, Image, Visitor
+from .models import (
+    Blog,
+    Profile,
+    Tag,
+    Post,
+    SideProject,
+    Comment,
+    Category,
+    Image,
+    Visitor,
+)
 
 # Register your models here.
 
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'user',
-        'blog_title',
-        'blog_subtitle'
-    ]
+    list_display = ['id', 'user', 'blog_title', 'blog_subtitle']
 
 
 @admin.register(Profile)
@@ -29,25 +34,17 @@ class ProfileAdmin(admin.ModelAdmin):
         'biography',
     ]
 
-    formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget}
-    }
+    formfield_overrides = {models.TextField: {'widget': AdminMartorWidget}}
 
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'name'
-    ]
+    list_display = ['id', 'name']
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'name'
-    ]
+    list_display = ['id', 'name']
 
 
 @admin.register(Post)
@@ -60,33 +57,20 @@ class PostAdmin(admin.ModelAdmin):
         "created_date",
         "modified_date",
         "publish_date",
-        "published"
+        "published",
     ]
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'author',
-        'body',
-        'comment_at'
-    ]
+    list_display = ['id', 'author', 'body', 'comment_at']
 
-    formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget}
-    }
+    formfield_overrides = {models.TextField: {'widget': AdminMartorWidget}}
 
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    list_display = [
-        'id',
-        'name',
-        'image_preview',
-        'upload_at',
-        'image_url'
-    ]
+    list_display = ['id', 'name', 'image_preview', 'upload_at', 'image_url']
 
     def image_preview(self, obj):
         image = PilImage.open(obj.image.path)
@@ -108,7 +92,9 @@ class ImageAdmin(admin.ModelAdmin):
 
         # Resize the image
         # image.thumbnail((width, height))
-        return format_html(f'<img src={obj.image.url} with="{width}px" height="{height}px"></img>')
+        return format_html(
+            f'<img src={obj.image.url} with="{width}px" height="{height}px"></img>'
+        )
 
     def image_url(self, obj):
         return obj.image.url
@@ -124,3 +110,8 @@ class VisitorAdmin(admin.ModelAdmin):
         'remote_addr',
         'http_referer',
     ]
+
+
+@admin.register(SideProject)
+class SideProjectAdmin(admin.ModelAdmin):
+    list_display = ['id', 'title', 'link', 'created_date']

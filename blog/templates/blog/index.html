@@ -10,26 +10,27 @@
 {% endblock head %}
 {% block header %}
   <div id="header-wrapper">
-    <a href="{% url 'index' %}">
-      <h1 class="site-header-text">{{ blog.blog_title }}</h1>
-      <h3 class="site-header-text">{{ blog.blog_subtitle }}</h2>
-    </a>
+      <h1 class="site-header-text"><a href="{% url 'index' %}">{{ blog.blog_title }}</a></h1>
+      <h3 class="site-header-text"><a href="{% url 'index' %}">{{ blog.blog_subtitle }}</a></h2>
   </div>
 {% endblock header %}
 {% block nav %}
   <div id="nav-wrapper">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="{% url 'posts' %}">文章列表</a>
+        <a href="{% url 'posts' %}">ARTICLES</a>
       </li>
       {% comment %} <li class="nav-item">
         <a>PROJECT</a>
       </li> {% endcomment %}
       <li class="nav-item">
-        <a href="{{ profile.website }}">個人經歷</a>
+        <a href="{{ profile.website }}">EXPERIENCE</a>
       </li>
       <li class="nav-item">
-        <a href="{% url 'about' %}">關於我</a>
+        <a href="{% url 'side_project_list' %}">PPROJECTS</a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'about' %}">ABOUT</a>
       </li>
     </ul>
   </div>

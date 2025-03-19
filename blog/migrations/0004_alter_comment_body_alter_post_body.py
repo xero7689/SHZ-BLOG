@@ -5,7 +5,6 @@ import martor.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('blog', '0003_comment'),
     ]

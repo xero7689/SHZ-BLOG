@@ -233,3 +233,7 @@ typings/
 
 # Django Data and Static Directory
 data/
+media_root/
+static_root/
+static_extra/
+www/
